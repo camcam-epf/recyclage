@@ -1,0 +1,3 @@
+ordinateur1 - informatique - 8.0 - lafabrique@gmail.com - 2000-01-01 -  
+lave-vaisselle2 - electromenager - 3.0 - lafabrique@gmail.com - 2025-03-17 - centre.tri@gmail.com
+souris1 - informatique - 0.24 - lafabrique@gmail.com - 2000-01-01 -  
