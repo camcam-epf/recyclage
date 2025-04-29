@@ -114,6 +114,11 @@ public class FMenuPart extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_bAjoutDepotActionPerformed
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {                                  
+        // TODO add your handling code here:
+        System.exit(0);
+    }  
+    
     /**
      * @param args the command line arguments
      */
