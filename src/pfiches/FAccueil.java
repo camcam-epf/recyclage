@@ -4,7 +4,9 @@
  */
 package pfiches;
 
+import java.io.IOException;
 import ptraitement.Plateforme;
+import ptraitement.Utilisateur;
 
 /**
  *
@@ -14,8 +16,11 @@ public class FAccueil extends javax.swing.JFrame {
 
     private FInscription fichInsc;
     private FMenuPart fichMPart;
+    private FConnexion fichCon;
+    private FMenuEnt fichMEnt;
     //ajouter attributs pour autres fiches
     private Plateforme maPlat;
+    Utilisateur uti;
 
     /**
      * Creates new form FAccueil
@@ -24,8 +29,20 @@ public class FAccueil extends javax.swing.JFrame {
         initComponents();
         fichInsc = new FInscription(this, false);
         fichMPart = new FMenuPart(this, false);
+        fichCon = new FConnexion(this, false);
+        fichMEnt = new FMenuEnt(this, false);
         //rajouter ici les autres fiches
         maPlat = new Plateforme();
+        try {
+            maPlat.chargerClients();
+            maPlat.chargerCentres();
+            maPlat.chargerDechets();
+            maPlat.chargerDemandes();
+            maPlat.MAJ();
+        } catch (IOException ex) {
+
+        }
+
     }
 
     //gettas (accessors)
@@ -36,9 +53,21 @@ public class FAccueil extends javax.swing.JFrame {
     public Plateforme getMaPlat() {
         return maPlat;
     }
-    
-    public FMenuPart getFichMPart(){
+
+    public FMenuPart getFichMPart() {
         return fichMPart;
+    }
+
+    public FMenuEnt getFichMEnt() {
+        return fichMEnt;
+    }
+
+    public void setUti(Utilisateur uti) {
+        this.uti = uti;
+    }
+
+    public Utilisateur getUti() {
+        return uti;
     }
 
     /**
@@ -51,6 +80,7 @@ public class FAccueil extends javax.swing.JFrame {
     private void initComponents() {
 
         bInscription = new javax.swing.JButton();
+        bConnexion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Accueil");
@@ -62,21 +92,35 @@ public class FAccueil extends javax.swing.JFrame {
             }
         });
 
+        bConnexion.setText("Connexion");
+        bConnexion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bConnexionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(84, 84, 84)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(72, 72, 72)
+                .addComponent(bConnexion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                 .addComponent(bInscription)
-                .addContainerGap(231, Short.MAX_VALUE))
+                .addGap(49, 49, 49))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(bInscription)
-                .addContainerGap(219, Short.MAX_VALUE))
+                .addContainerGap(182, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(bInscription)
+                        .addGap(95, 95, 95))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(bConnexion)
+                        .addGap(87, 87, 87))))
         );
 
         pack();
@@ -87,6 +131,12 @@ public class FAccueil extends javax.swing.JFrame {
         this.setVisible(false);
         fichInsc.setVisible(true);
     }//GEN-LAST:event_bInscriptionActionPerformed
+
+    private void bConnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bConnexionActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        fichCon.setVisible(true);
+    }//GEN-LAST:event_bConnexionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -124,6 +174,7 @@ public class FAccueil extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bConnexion;
     private javax.swing.JButton bInscription;
     // End of variables declaration//GEN-END:variables
 }

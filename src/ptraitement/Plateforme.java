@@ -41,53 +41,6 @@ public class Plateforme {
 //    connexion, rechercher centre, modifier(centre, particulier, entreprise), MAJ, demande Collecte, fixer date collecte, declarer depot
 //    consulter liste collecte(centre, entreprise)
 //    a faire :  trierHistoDechets
-    public Client inscriptionClient() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Etes vous une entreprise(A) ou un particulier(B)");
-        String typeClient = sc.nextLine();
-        System.out.println("Entrez votre adresse email");
-        String email = sc.nextLine();
-        for (int i = 0; i < listeClients.size(); i++) {
-            if (listeClients.get(i).getMail().equals(email)) {
-                System.out.println("Vous avez deja un compte, veuillez vous connecter");
-                connexion();
-            }
-        }
-        System.out.println("Entrez votre mot de passe");
-        String mdp = sc.nextLine();
-        String nom, tel, adresse;
-        switch (typeClient) {
-            case "B" -> {
-                System.out.println("Entrez votre nom");
-                nom = sc.nextLine();
-                System.out.println("Entrez votre prenom");
-                String prenom = sc.nextLine();
-                System.out.println("Entrez votre numero de telephone");
-                tel = sc.nextLine();
-                System.out.println("Entrez votre adresse postale");
-                adresse = sc.nextLine();
-                Particulier particulier = new Particulier(email, mdp, nom, prenom, tel, adresse);
-                listeClients.add(particulier);
-//                System.out.println(particulier);
-                return particulier;
-            }
-            case "A" -> {
-                System.out.println("Entrez le nom de votre entreprise");
-                nom = sc.nextLine();
-                System.out.println("Entrez votre numero de telephone");
-                tel = sc.nextLine();
-                System.out.println("Entrez votre adresse postale");
-                adresse = sc.nextLine();
-                Entreprise entreprise = new Entreprise(email, mdp, nom, tel, adresse);
-                listeClients.add(entreprise);
-                return entreprise;
-            }
-            default -> {
-                return null;
-            }
-        }
-    }
-
     public Entreprise inscriptionEnt(String email, String mdp, String nom, String tel, String adresse) {
         Entreprise entreprise = new Entreprise(email, mdp, nom, tel, adresse);
         listeClients.add(entreprise);
@@ -109,33 +62,15 @@ public class Plateforme {
 
     }
 
-    public CentreTri inscriptionCentre(String email,String mdp,String nom,String tel,String adresse, ArrayList<String> typeD,
+    public CentreTri inscriptionCentre(String email, String mdp, String nom, String tel, String adresse, ArrayList<String> typeD,
             LocalTime ouverture, LocalTime fermeture, float capacite) {
-        
+
 //        for (int i = 0; i < listeCentres.size(); i++) {
 //            if (listeCentres.get(i).getMail().equals(email)) {
 //                System.out.println("Vous avez deja un compte, veuillez vous connecter");
 //                connexion();
 //            }
 //        }
-        
-        System.out.println("Combien de types differents de dechets acceptez vous ?");
-        int nb = ;
-        ArrayList<String> typeD = new ArrayList<>();
-        String dechet;
-        for (int i = 0; i < nb; i++) {
-            System.out.println("Quel est le type de dechet numero " + (i + 1) + " ?");
-
-            dechet = sc.nextLine();
-            typeD.add(dechet);
-        }
-        System.out.println("A quelle heure ouvrez vous?");
-        sc = new Scanner(System.in);
-        LocalTime ouverture = LocalTime.parse(sc.nextLine());
-        System.out.println("A quelle heure fermez vous?");
-        LocalTime fermeture = LocalTime.parse(sc.nextLine());
-        System.out.println("Quelle est votre capacite de stockage (en tonnes) ?");
-        float capacite = sc.nextFloat();
         CentreTri centre = new CentreTri(email, mdp, nom, tel, adresse, typeD, ouverture, fermeture, capacite);
         listeCentres.add(centre);
         return (centre);
@@ -297,30 +232,20 @@ public class Plateforme {
             if (listeClients.get(i).getMail().equals(email)) {
                 uti = listeClients.get(i);
                 while (listeClients.get(i).getMdp().equals(mdp) == false) {
-                    System.out.println("Mot de passe errone");
-                    System.out.println("Entrez votre mot de passe :");
-                    mdp = sc.nextLine();
+                    return null;
                 }
-                System.out.println("Vous etes maintenenant connecte");
-                
                 return uti;
             }
         }
         for (int i = 0; i < listeCentres.size(); i++) {
             if (listeCentres.get(i).getMail().equals(email)) {
                 uti = listeCentres.get(i);
-                System.out.println("Entrez votre mot de passe :");
-                String mdp = sc.nextLine();
                 while (listeCentres.get(i).getMdp().equals(mdp) == false) {
-                    System.out.println("Mot de passe errone");
-                    System.out.println("Entrez votre mot de passe :");
-                    mdp = sc.nextLine();
+                    return null;
                 }
-                System.out.println("Vous etes maintenenant connecte");
                 return uti;
             }
         }
-        System.out.println("Votre adresse email ne correspond a aucun compte");
         return null;
     }
 

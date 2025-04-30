@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import ptraitement.CentreTri;
+import ptraitement.Entreprise;
+import ptraitement.Particulier;
 import ptraitement.Plateforme;
 import ptraitement.Utilisateur;
 
@@ -17,19 +20,36 @@ import ptraitement.Utilisateur;
  *
  * @author camil
  */
-public class FInscription extends javax.swing.JDialog {
+public class FModifierInfos extends javax.swing.JDialog {
 
     ArrayList<String> DechetsPossibles;
     Utilisateur uti;
 
     /**
-     * Creates new form FInscription
+     * Creates new form FModifierInfos
      */
-    public FInscription(java.awt.Frame parent, boolean modal) {
+    public FModifierInfos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        PCentre.setVisible(false);
         DechetsPossibles = new ArrayList<>();
+        uti = ((FAccueil) getParent()).getUti();
+        tfEmail.setText(uti.getMail());
+        tfMdp.setText(uti.getMdp());
+        tfNom.setText(uti.getNom());
+        tfTel.setText(uti.getTel());
+        tfAdresse.setText(uti.getAdresse());
+        if (uti instanceof Entreprise) {
+            PCentre.setVisible(false);
+            tfPrenom.setEnabled(false);
+        } else if (uti instanceof CentreTri centre) {
+            tfPrenom.setEnabled(false);
+            //liDechets.setSelectedIndices(indices);
+
+        } else if (uti instanceof Particulier particulier) {
+            PCentre.setVisible(false);
+            tfPrenom.setText(particulier.getPrenom());
+        }
+
     }
 
     /**
@@ -47,8 +67,6 @@ public class FInscription extends javax.swing.JDialog {
         tfMdp = new javax.swing.JTextField();
         lMdp = new javax.swing.JLabel();
         bValider = new javax.swing.JButton();
-        cbUti = new javax.swing.JComboBox<>();
-        lUti = new javax.swing.JLabel();
         tfNom = new javax.swing.JTextField();
         tfPrenom = new javax.swing.JTextField();
         tfTel = new javax.swing.JTextField();
@@ -70,7 +88,7 @@ public class FInscription extends javax.swing.JDialog {
         sCapacite = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Inscription");
+        setTitle("Modifier Infos");
         setFocusTraversalPolicyProvider(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -95,15 +113,6 @@ public class FInscription extends javax.swing.JDialog {
                 bValiderActionPerformed(evt);
             }
         });
-
-        cbUti.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Particulier", "Entreprise", "Centre de Tri" }));
-        cbUti.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbUtiActionPerformed(evt);
-            }
-        });
-
-        lUti.setText("type d'utilisateur");
 
         lNom.setText("Nom");
 
@@ -134,8 +143,8 @@ public class FInscription extends javax.swing.JDialog {
 
         lCapacite.setText("Capacite de stockage (en tonnes)");
 
-        sCapacite.setModel(new javax.swing.SpinnerNumberModel(1.0f, 1.0f, null, 0.5f));
         sCapacite.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        sCapacite.setDoubleBuffered(true);
 
         javax.swing.GroupLayout PCentreLayout = new javax.swing.GroupLayout(PCentre);
         PCentre.setLayout(PCentreLayout);
@@ -188,7 +197,7 @@ public class FInscription extends javax.swing.JDialog {
                 .addGroup(PCentreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lCapacite)
                     .addComponent(sCapacite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -200,7 +209,6 @@ public class FInscription extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lEmail)
                     .addComponent(lMdp)
-                    .addComponent(lUti)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,42 +218,28 @@ public class FInscription extends javax.swing.JDialog {
                             .addComponent(lAdresse)
                             .addComponent(bRetour))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bValider)
-                        .addGap(59, 59, 59))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(84, 84, 84)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(tfAdresse, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(tfMdp, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(tfNom, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(6, 6, 6)
-                                            .addComponent(tfTel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(tfPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cbUti, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addComponent(PCentre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(tfMdp, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfNom, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfTel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfAdresse, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(59, 59, 59)
+                        .addComponent(PCentre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(209, 209, 209)
+                        .addComponent(bValider)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbUti, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lUti))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lEmail)
                             .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -270,11 +264,11 @@ public class FInscription extends javax.swing.JDialog {
                             .addComponent(tfAdresse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lAdresse)))
                     .addComponent(PCentre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bRetour)
-                    .addComponent(bValider))
-                .addGap(34, 34, 34))
+                    .addComponent(bValider)
+                    .addComponent(bRetour))
+                .addGap(46, 46, 46))
         );
 
         pack();
@@ -303,34 +297,26 @@ public class FInscription extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Veuilliez remplir tout les champs avant de valider");
         } else {
             try {
-                switch (cbUti.getSelectedIndex()) {
-                    case 0:
-                        if (prenom.isEmpty()) {
-                            JOptionPane.showMessageDialog(this, "Veuilliez remplir tout les champs avant de valider");
-                        } else {
-                            uti = maPlat.inscriptionPart(email, mdp, nom, prenom, tel, adresse);
-                            ((FAccueil) getParent()).setUti(uti);
-                            maPlat.sauvegarderClients();
-                            this.setVisible(false);
-                            ((FAccueil) getParent()).getFichMPart().setVisible(true);
-                            break;
-                        }
-                    case 1:
-                        uti = maPlat.inscriptionEnt(email, mdp, nom, tel, adresse);
+                if (uti instanceof Particulier) {
+                    if (prenom.isEmpty()) {
+                        JOptionPane.showMessageDialog(this, "Veuilliez remplir tout les champs avant de valider");
+                    } else {
                         ((FAccueil) getParent()).setUti(uti);
                         maPlat.sauvegarderClients();
-                        break;
-                    case 2:
-                        if (liDechets.isSelectionEmpty()) {
-                            JOptionPane.showMessageDialog(this, "Veuilliez remplir tout les champs avant de valider");
-                        } else {
-                            uti = maPlat.inscriptionCentre(email, mdp, nom, tel, adresse, typeD, ouv, ferm, capacite);
-                            ((FAccueil) getParent()).setUti(uti);
-                            maPlat.sauvegarderCentres();
-                            break;
-                        }
-                    default:
-                        break;
+                        this.setVisible(false);
+                        ((FAccueil) getParent()).getFichMPart().setVisible(true);
+                    }
+                } else if (uti instanceof Entreprise) {
+                    ((FAccueil) getParent()).setUti(uti);
+                    maPlat.sauvegarderClients();
+                } else if (uti instanceof CentreTri) {
+                    if (liDechets.isSelectionEmpty()) {
+                        JOptionPane.showMessageDialog(this, "Veuilliez remplir tout les champs avant de valider");
+                    } else {
+                        ((FAccueil) getParent()).setUti(uti);
+                        maPlat.sauvegarderCentres();
+
+                    }
                 }
             } catch (IOException ex) {
                 //message d'erreur
@@ -339,23 +325,6 @@ public class FInscription extends javax.swing.JDialog {
 
 
     }//GEN-LAST:event_bValiderActionPerformed
-
-    private void cbUtiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbUtiActionPerformed
-        // TODO add your handling code here:
-        if (cbUti.getSelectedIndex() == 0) {
-            tfPrenom.setEnabled(true);
-            PCentre.setVisible(false);
-        }
-        if (cbUti.getSelectedIndex() == 1) {
-            tfPrenom.setEnabled(false);
-            PCentre.setVisible(false);
-        }
-        if (cbUti.getSelectedIndex() == 2) {
-            tfPrenom.setEnabled(false);
-            PCentre.setVisible(true);
-        }
-
-    }//GEN-LAST:event_cbUtiActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
@@ -379,20 +348,20 @@ public class FInscription extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FInscription.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FModifierInfos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FInscription.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FModifierInfos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FInscription.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FModifierInfos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FInscription.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FModifierInfos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FInscription dialog = new FInscription(new javax.swing.JFrame(), true);
+                FModifierInfos dialog = new FModifierInfos(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -411,7 +380,6 @@ public class FInscription extends javax.swing.JDialog {
     private javax.swing.JButton bValider;
     private javax.swing.JComboBox<String> cbFermeture;
     private javax.swing.JComboBox<String> cbOuverture;
-    private javax.swing.JComboBox<String> cbUti;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lAdresse;
     private javax.swing.JLabel lCapacite;
@@ -423,7 +391,6 @@ public class FInscription extends javax.swing.JDialog {
     private javax.swing.JLabel lOuverture;
     private javax.swing.JLabel lPrenom;
     private javax.swing.JLabel lTel;
-    private javax.swing.JLabel lUti;
     private javax.swing.JList<String> liDechets;
     private javax.swing.JSpinner sCapacite;
     private javax.swing.JTextField tfAdresse;

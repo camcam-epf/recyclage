@@ -63,6 +63,14 @@ public class Utilisateur {
         return nom;
     }
 
+    public String getTel() {
+        return tel;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
     public ArrayList<String> getHisto() {
         return historiqueDechets;
     }

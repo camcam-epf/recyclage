@@ -5,21 +5,21 @@
 package pfiches;
 
 import javax.swing.JOptionPane;
-import ptraitement.Particulier;
 import ptraitement.Utilisateur;
 
 /**
  *
  * @author camil
  */
-public class FMenuPart extends javax.swing.JDialog {
-    
+public class FMenuEnt extends javax.swing.JDialog {
+
     private FModifierInfos fichMInf;
     private Utilisateur uti;
+
     /**
-     * Creates new form FMenuPart
+     * Creates new form FMenuEnt
      */
-    public FMenuPart(java.awt.Frame parent, boolean modal) {
+    public FMenuEnt(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         uti = ((FAccueil) getParent()).getUti();
@@ -34,31 +34,22 @@ public class FMenuPart extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        bTrouvCentre = new javax.swing.JButton();
-        bAjoutDepot = new javax.swing.JButton();
+        bDemandeCollecte = new javax.swing.JButton();
+        bVoirCollecte = new javax.swing.JButton();
         bHisto = new javax.swing.JButton();
         bInfos = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        bDeco = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
-        });
+
+        jLabel2.setText("Bienvenu dans votre espace client !");
 
         jLabel1.setText("Voulez-vous:");
 
-        bTrouvCentre.setText("Trouver un centre de recyclage");
+        bDemandeCollecte.setText("Faire une demande de collecte de dechets");
 
-        bAjoutDepot.setText("Ajouter un depot que vous avez effectué");
-        bAjoutDepot.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bAjoutDepotActionPerformed(evt);
-            }
-        });
+        bVoirCollecte.setText("Consulter la liste des collectes a venir");
 
         bHisto.setText("Consulter votre historique de dechets recyclés");
         bHisto.setToolTipText("");
@@ -75,10 +66,6 @@ public class FMenuPart extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setText("Bienvenu dans votre espace client !");
-
-        bDeco.setText("Déconnexion");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -86,55 +73,46 @@ public class FMenuPart extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(142, 142, 142)
+                        .addGap(81, 81, 81)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(134, 134, 134)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(86, 86, 86)
-                        .addComponent(bTrouvCentre))
+                        .addGap(66, 66, 66)
+                        .addComponent(bDemandeCollecte))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(bAjoutDepot))
+                        .addGap(81, 81, 81)
+                        .addComponent(bVoirCollecte))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
+                        .addGap(63, 63, 63)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(bInfos))
-                            .addComponent(bHisto)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(bDeco)))
-                .addContainerGap(84, Short.MAX_VALUE))
+                            .addComponent(bHisto))))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(14, 14, 14)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(bDemandeCollecte)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bTrouvCentre)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(bAjoutDepot)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(bVoirCollecte)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bHisto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bInfos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                .addComponent(bDeco)
-                .addGap(26, 26, 26))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void bAjoutDepotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAjoutDepotActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bAjoutDepotActionPerformed
 
     private void bHistoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bHistoActionPerformed
         // TODO add your handling code here:
@@ -142,18 +120,13 @@ public class FMenuPart extends javax.swing.JDialog {
         JOptionPane.showMessageDialog(this, uti.getHisto());
     }//GEN-LAST:event_bHistoActionPerformed
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_formWindowClosed
-
     private void bInfosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bInfosActionPerformed
         // TODO add your handling code here:
-        fichMInf=new FModifierInfos(((FAccueil) getParent()), false);
+        fichMInf = new FModifierInfos(((FAccueil) getParent()), false);
         this.setVisible(false);
         fichMInf.setVisible(true);
     }//GEN-LAST:event_bInfosActionPerformed
-  
+
     /**
      * @param args the command line arguments
      */
@@ -171,20 +144,20 @@ public class FMenuPart extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FMenuPart.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FMenuEnt.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FMenuPart.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FMenuEnt.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FMenuPart.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FMenuEnt.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FMenuPart.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FMenuEnt.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FMenuPart dialog = new FMenuPart(new javax.swing.JFrame(), true);
+                FMenuEnt dialog = new FMenuEnt(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -197,11 +170,10 @@ public class FMenuPart extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bAjoutDepot;
-    private javax.swing.JButton bDeco;
+    private javax.swing.JButton bDemandeCollecte;
     private javax.swing.JButton bHisto;
     private javax.swing.JButton bInfos;
-    private javax.swing.JButton bTrouvCentre;
+    private javax.swing.JButton bVoirCollecte;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables

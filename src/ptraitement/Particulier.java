@@ -41,4 +41,8 @@ public class Particulier extends Client {
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
+
+    public String getPrenom() {
+        return prenom;
+    }
 }
