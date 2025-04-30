@@ -40,16 +40,32 @@ public class FMenuEnt extends javax.swing.JDialog {
         bVoirCollecte = new javax.swing.JButton();
         bHisto = new javax.swing.JButton();
         bInfos = new javax.swing.JButton();
+        bDeco = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel2.setText("Bienvenu dans votre espace client !");
 
         jLabel1.setText("Voulez-vous:");
 
         bDemandeCollecte.setText("Faire une demande de collecte de dechets");
+        bDemandeCollecte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bDemandeCollecteActionPerformed(evt);
+            }
+        });
 
         bVoirCollecte.setText("Consulter la liste des collectes a venir");
+        bVoirCollecte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bVoirCollecteActionPerformed(evt);
+            }
+        });
 
         bHisto.setText("Consulter votre historique de dechets recyclés");
         bHisto.setToolTipText("");
@@ -66,6 +82,13 @@ public class FMenuEnt extends javax.swing.JDialog {
             }
         });
 
+        bDeco.setText("Déconnexion");
+        bDeco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bDecoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -73,59 +96,72 @@ public class FMenuEnt extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
+                        .addGap(69, 69, 69)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jLabel1)
+                            .addComponent(bDemandeCollecte)
+                            .addComponent(bVoirCollecte)
+                            .addComponent(bHisto)
+                            .addComponent(bInfos)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(134, 134, 134)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(bDemandeCollecte))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addComponent(bVoirCollecte))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(bInfos))
-                            .addComponent(bHisto))))
-                .addContainerGap(66, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(bDeco)))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
+                .addGap(26, 26, 26)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bDemandeCollecte)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bVoirCollecte)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bHisto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bInfos)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addComponent(bDeco)
+                .addGap(21, 21, 21))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void bHistoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bHistoActionPerformed
-        // TODO add your handling code here:
         uti = ((FAccueil) getParent()).getUti();
         JOptionPane.showMessageDialog(this, uti.getHisto());
     }//GEN-LAST:event_bHistoActionPerformed
 
     private void bInfosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bInfosActionPerformed
-        // TODO add your handling code here:
         fichMInf = new FModifierInfos(((FAccueil) getParent()), false);
         this.setVisible(false);
         fichMInf.setVisible(true);
     }//GEN-LAST:event_bInfosActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        System.exit(0);
+    }//GEN-LAST:event_formWindowClosed
+
+    private void bDemandeCollecteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDemandeCollecteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bDemandeCollecteActionPerformed
+
+    private void bVoirCollecteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVoirCollecteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bVoirCollecteActionPerformed
+
+    private void bDecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDecoActionPerformed
+        ((FAccueil) getParent()).setUti(null);
+        this.setVisible(false);
+        this.getParent().setVisible(true);
+    }//GEN-LAST:event_bDecoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -170,6 +206,7 @@ public class FMenuEnt extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bDeco;
     private javax.swing.JButton bDemandeCollecte;
     private javax.swing.JButton bHisto;
     private javax.swing.JButton bInfos;

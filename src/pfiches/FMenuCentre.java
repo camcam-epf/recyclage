@@ -4,18 +4,24 @@
  */
 package pfiches;
 
+import javax.swing.JOptionPane;
+import ptraitement.Utilisateur;
+
 /**
  *
  * @author camil
  */
 public class FMenuCentre extends javax.swing.JDialog {
 
+    private FModifierInfos fichMInf;
+    private Utilisateur uti;
     /**
      * Creates new form FMenuCentre
      */
     public FMenuCentre(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        uti = ((FAccueil) getParent()).getUti();
     }
 
     /**
@@ -31,16 +37,56 @@ public class FMenuCentre extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         bVoirDCollectes = new javax.swing.JButton();
         bVoirCollectes = new javax.swing.JButton();
+        bHisto = new javax.swing.JButton();
+        bInfos = new javax.swing.JButton();
+        bDeco = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Menu");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel2.setText("Bienvenu dans votre espace client !");
 
         jLabel1.setText("Voulez-vous:");
 
         bVoirDCollectes.setText("Consulter la liste des demandes de collecte");
+        bVoirDCollectes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bVoirDCollectesActionPerformed(evt);
+            }
+        });
 
         bVoirCollectes.setText("Consulter la liste des collectes que vous devez effectuer");
+        bVoirCollectes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bVoirCollectesActionPerformed(evt);
+            }
+        });
+
+        bHisto.setText("Consulter votre historique de dechets recyclés");
+        bHisto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bHistoActionPerformed(evt);
+            }
+        });
+
+        bInfos.setText("Modifier les informations de votre compte");
+        bInfos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bInfosActionPerformed(evt);
+            }
+        });
+
+        bDeco.setText("Déconnexion");
+        bDeco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bDecoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -49,35 +95,72 @@ public class FMenuCentre extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(95, 95, 95)
-                        .addComponent(jLabel2))
+                        .addGap(15, 15, 15)
+                        .addComponent(bDeco))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(153, 153, 153)
-                        .addComponent(jLabel1))
+                        .addGap(50, 50, 50)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(bVoirDCollectes)
+                            .addComponent(bVoirCollectes)
+                            .addComponent(bHisto)
+                            .addComponent(bInfos)
+                            .addComponent(jLabel1)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
-                        .addComponent(bVoirDCollectes))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(bVoirCollectes)))
-                .addContainerGap(66, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jLabel2)))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
+                .addGap(37, 37, 37)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bVoirDCollectes)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bVoirCollectes)
-                .addContainerGap(161, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bHisto)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bInfos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(bDeco)
+                .addGap(23, 23, 23))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bHistoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bHistoActionPerformed
+        uti = ((FAccueil) getParent()).getUti();
+        JOptionPane.showMessageDialog(this, uti.getHisto());
+    }//GEN-LAST:event_bHistoActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        System.exit(0);
+    }//GEN-LAST:event_formWindowClosed
+
+    private void bVoirDCollectesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVoirDCollectesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bVoirDCollectesActionPerformed
+
+    private void bVoirCollectesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVoirCollectesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bVoirCollectesActionPerformed
+
+    private void bInfosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bInfosActionPerformed
+        fichMInf = new FModifierInfos(((FAccueil) getParent()), false);
+        this.setVisible(false);
+        fichMInf.setVisible(true);
+    }//GEN-LAST:event_bInfosActionPerformed
+
+    private void bDecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDecoActionPerformed
+        ((FAccueil) getParent()).setUti(null);
+        this.setVisible(false);
+        this.getParent().setVisible(true);
+    }//GEN-LAST:event_bDecoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -122,6 +205,9 @@ public class FMenuCentre extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bDeco;
+    private javax.swing.JButton bHisto;
+    private javax.swing.JButton bInfos;
     private javax.swing.JButton bVoirCollectes;
     private javax.swing.JButton bVoirDCollectes;
     private javax.swing.JLabel jLabel1;

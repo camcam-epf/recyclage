@@ -6,9 +6,12 @@ package pfiches;
 
 import java.io.IOException;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import ptraitement.CentreTri;
 import ptraitement.Entreprise;
@@ -32,6 +35,16 @@ public class FModifierInfos extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         DechetsPossibles = new ArrayList<>();
+        DechetsPossibles.add("Electromenager");
+        DechetsPossibles.add("Informatique");
+        DechetsPossibles.add("Telecommunication");
+        DechetsPossibles.add("Jouets");
+        DechetsPossibles.add("Cameras");
+        DefaultListModel<String> model = new DefaultListModel<>();
+        for (String dechet : DechetsPossibles) {
+            model.addElement(dechet);
+        }
+        liDechets.setModel(model);
         uti = ((FAccueil) getParent()).getUti();
         tfEmail.setText(uti.getMail());
         tfMdp.setText(uti.getMdp());
@@ -43,8 +56,17 @@ public class FModifierInfos extends javax.swing.JDialog {
             tfPrenom.setEnabled(false);
         } else if (uti instanceof CentreTri centre) {
             tfPrenom.setEnabled(false);
-            //liDechets.setSelectedIndices(indices);
-
+            List<Integer> indices = new ArrayList<>();
+            for (int i = 0; i < model.size(); i++) {
+                if (centre.getTypeDechetAccepte().contains(model.getElementAt(i))) {
+                    indices.add(i);
+                }
+            }
+            int[] indicesArray = indices.stream().mapToInt(Integer::intValue).toArray();
+            liDechets.setSelectedIndices(indicesArray);
+            cbOuverture.setSelectedItem(centre.getOuverture().format(DateTimeFormatter.ofPattern("HH:mm")));
+            cbFermeture.setSelectedItem(centre.getFermeture().format(DateTimeFormatter.ofPattern("HH:mm")));
+            sCapacite.setValue(centre.getCapacite());
         } else if (uti instanceof Particulier particulier) {
             PCentre.setVisible(false);
             tfPrenom.setText(particulier.getPrenom());
@@ -275,13 +297,18 @@ public class FModifierInfos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRetourActionPerformed
-        // TODO add your handling code here:
         this.setVisible(false);
-        this.getParent().setVisible(true);
+        if (uti instanceof Particulier) {
+            ((FAccueil) getParent()).getFichMPart().setVisible(true);
+        } else if (uti instanceof Entreprise){
+            ((FAccueil) getParent()).getFichMEnt().setVisible(true);
+        } else if (uti instanceof CentreTri){
+            ((FAccueil) getParent()).getFichMCentre().setVisible(true);
+        }
+
     }//GEN-LAST:event_bRetourActionPerformed
 
     private void bValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bValiderActionPerformed
-        // TODO add your handling code here:
         Plateforme maPlat = ((FAccueil) getParent()).getMaPlat();
         String email = tfEmail.getText();
         String mdp = tfMdp.getText();
@@ -297,29 +324,35 @@ public class FModifierInfos extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Veuilliez remplir tout les champs avant de valider");
         } else {
             try {
-                if (uti instanceof Particulier) {
+                if (uti instanceof Particulier part) {
                     if (prenom.isEmpty()) {
                         JOptionPane.showMessageDialog(this, "Veuilliez remplir tout les champs avant de valider");
                     } else {
-                        ((FAccueil) getParent()).setUti(uti);
+                        ((FAccueil) getParent()).setUti(part);
+                        maPlat.modifier(part, email, mdp, nom, prenom, tel, adresse);
                         maPlat.sauvegarderClients();
                         this.setVisible(false);
                         ((FAccueil) getParent()).getFichMPart().setVisible(true);
                     }
-                } else if (uti instanceof Entreprise) {
-                    ((FAccueil) getParent()).setUti(uti);
+                } else if (uti instanceof Entreprise ent) {
+                    ((FAccueil) getParent()).setUti(ent);
+                    maPlat.modifier(ent, email, mdp, nom, tel, adresse);
                     maPlat.sauvegarderClients();
-                } else if (uti instanceof CentreTri) {
-                    if (liDechets.isSelectionEmpty()) {
+                    this.setVisible(false);
+                    ((FAccueil) getParent()).getFichMEnt().setVisible(true);
+                } else if (uti instanceof CentreTri centre) {
+                    if (typeD.isEmpty()) {
                         JOptionPane.showMessageDialog(this, "Veuilliez remplir tout les champs avant de valider");
                     } else {
-                        ((FAccueil) getParent()).setUti(uti);
+                        ((FAccueil) getParent()).setUti(centre);
+                        maPlat.modifier(centre, email, mdp, nom, tel, adresse, ouv, ferm, typeD, capacite);
                         maPlat.sauvegarderCentres();
-
+                        this.setVisible(false);
+                        ((FAccueil) getParent()).getFichMCentre().setVisible(true);
                     }
                 }
             } catch (IOException ex) {
-                //message d'erreur
+                JOptionPane.showMessageDialog(this, "Une erreur s'est produite");
             }
         }
 
@@ -327,7 +360,6 @@ public class FModifierInfos extends javax.swing.JDialog {
     }//GEN-LAST:event_bValiderActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_formWindowClosed
 

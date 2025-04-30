@@ -52,6 +52,11 @@ public class FMenuPart extends javax.swing.JDialog {
         jLabel1.setText("Voulez-vous:");
 
         bTrouvCentre.setText("Trouver un centre de recyclage");
+        bTrouvCentre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bTrouvCentreActionPerformed(evt);
+            }
+        });
 
         bAjoutDepot.setText("Ajouter un depot que vous avez effectué");
         bAjoutDepot.addActionListener(new java.awt.event.ActionListener() {
@@ -78,6 +83,11 @@ public class FMenuPart extends javax.swing.JDialog {
         jLabel2.setText("Bienvenu dans votre espace client !");
 
         bDeco.setText("Déconnexion");
+        bDeco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bDecoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,28 +96,20 @@ public class FMenuPart extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(142, 142, 142)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(86, 86, 86)
-                        .addComponent(bTrouvCentre))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(bAjoutDepot))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(bInfos))
-                            .addComponent(bHisto)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jLabel2))
+                        .addGap(51, 51, 51)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jLabel1)
+                            .addComponent(bTrouvCentre)
+                            .addComponent(bAjoutDepot)
+                            .addComponent(bHisto)
+                            .addComponent(bInfos)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(bDeco)))
-                .addContainerGap(84, Short.MAX_VALUE))
+                        .addComponent(bDeco))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel2)))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,13 +120,13 @@ public class FMenuPart extends javax.swing.JDialog {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bTrouvCentre)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bAjoutDepot)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bHisto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bInfos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
                 .addComponent(bDeco)
                 .addGap(26, 26, 26))
         );
@@ -137,22 +139,29 @@ public class FMenuPart extends javax.swing.JDialog {
     }//GEN-LAST:event_bAjoutDepotActionPerformed
 
     private void bHistoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bHistoActionPerformed
-        // TODO add your handling code here:
         uti = ((FAccueil) getParent()).getUti();
         JOptionPane.showMessageDialog(this, uti.getHisto());
     }//GEN-LAST:event_bHistoActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_formWindowClosed
 
     private void bInfosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bInfosActionPerformed
-        // TODO add your handling code here:
         fichMInf=new FModifierInfos(((FAccueil) getParent()), false);
         this.setVisible(false);
         fichMInf.setVisible(true);
     }//GEN-LAST:event_bInfosActionPerformed
+
+    private void bTrouvCentreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTrouvCentreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bTrouvCentreActionPerformed
+
+    private void bDecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDecoActionPerformed
+        ((FAccueil) getParent()).setUti(null);
+        this.setVisible(false);
+        this.getParent().setVisible(true);
+    }//GEN-LAST:event_bDecoActionPerformed
   
     /**
      * @param args the command line arguments

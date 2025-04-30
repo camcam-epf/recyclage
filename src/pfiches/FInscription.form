@@ -23,61 +23,44 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,85,0,0,2,-106"/>
   </AuxValues>
 
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="lEmail" min="-2" max="-2" attributes="0"/>
-                  <Component id="lMdp" min="-2" max="-2" attributes="0"/>
+                  <Component id="lTel" min="-2" max="-2" attributes="0"/>
                   <Component id="lUti" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lPrenom" min="-2" max="-2" attributes="0"/>
-                          <Component id="lNom" min="-2" max="-2" attributes="0"/>
-                          <Component id="lTel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lAdresse" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="bRetour" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+                  <Component id="lMdp" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="lNom" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="lPrenom" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="lEmail" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="lAdresse" min="-2" max="-2" attributes="0"/>
+                  <Component id="bRetour" min="-2" max="-2" attributes="0"/>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="402" pref="402" max="-2" attributes="0"/>
                       <Component id="bValider" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
+                      <EmptySpace pref="59" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="tfAdresse" min="-2" pref="127" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="tfMdp" min="-2" pref="127" max="-2" attributes="0"/>
-                                      <Component id="tfEmail" min="-2" pref="127" max="-2" attributes="0"/>
-                                      <Component id="tfNom" alignment="0" min="-2" pref="127" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                          <Component id="tfTel" min="-2" pref="127" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="tfPrenom" alignment="0" min="-2" pref="127" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="cbUti" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="cbUti" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfMdp" linkSize="1" alignment="1" min="-2" pref="127" max="-2" attributes="0"/>
+                          <Component id="tfEmail" linkSize="1" alignment="1" min="-2" pref="127" max="-2" attributes="0"/>
+                          <Component id="tfNom" linkSize="1" alignment="1" min="-2" pref="127" max="-2" attributes="0"/>
+                          <Component id="tfPrenom" linkSize="1" alignment="1" min="-2" pref="127" max="-2" attributes="0"/>
+                          <Component id="tfTel" linkSize="1" alignment="1" min="-2" pref="127" max="-2" attributes="0"/>
+                          <Component id="tfAdresse" linkSize="1" alignment="1" min="-2" pref="127" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="PCentre" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="13" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -85,48 +68,48 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="17" pref="17" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace pref="17" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="cbUti" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lUti" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lEmail" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfEmail" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfEmail" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lMdp" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfMdp" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfMdp" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="tfNom" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfNom" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lNom" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="tfPrenom" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfPrenom" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lPrenom" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="tfTel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfTel" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lTel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="tfAdresse" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lAdresse" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfAdresse" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="PCentre" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="36" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="bRetour" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="bValider" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -147,7 +130,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lEmail">
       <Properties>
-        <Property name="text" type="java.lang.String" value="email"/>
+        <Property name="text" type="java.lang.String" value="Email"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfEmail">
@@ -156,7 +139,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lMdp">
       <Properties>
-        <Property name="text" type="java.lang.String" value="mot de passe"/>
+        <Property name="text" type="java.lang.String" value="Mot de passe"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="bValider">
@@ -186,7 +169,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lUti">
       <Properties>
-        <Property name="text" type="java.lang.String" value="type d&apos;utilisateur"/>
+        <Property name="text" type="java.lang.String" value="Type d&apos;utilisateur"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfNom">
@@ -223,34 +206,24 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                          <Component id="lDechets" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lOuverture" min="-2" max="-2" attributes="0"/>
-                              <Component id="bAjouter" min="-2" max="-2" attributes="0"/>
-                              <Component id="lFermeture" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lCapacite" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="lOuverture" min="-2" max="-2" attributes="0"/>
+                      <Component id="lFermeture" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="lCapacite" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="lDechets" min="-2" max="-2" attributes="0"/>
+                      <Component id="bAjouter" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane1" max="32767" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="cbOuverture" min="-2" max="-2" attributes="0"/>
+                              <Component id="cbFermeture" min="-2" max="-2" attributes="0"/>
                               <Component id="sCapacite" alignment="1" min="-2" pref="64" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cbOuverture" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbFermeture" min="-2" max="-2" attributes="0"/>
-                              </Group>
                           </Group>
-                          <EmptySpace min="0" pref="89" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="82" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -260,16 +233,16 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane1" min="-2" pref="56" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="lDechets" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="bAjouter" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="jScrollPane1" min="-2" pref="56" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="cbOuverture" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lOuverture" alignment="3" min="-2" max="-2" attributes="0"/>

@@ -5,6 +5,7 @@
 package pfiches;
 
 import java.io.IOException;
+import javax.swing.JOptionPane;
 import ptraitement.Plateforme;
 import ptraitement.Utilisateur;
 
@@ -18,6 +19,7 @@ public class FAccueil extends javax.swing.JFrame {
     private FMenuPart fichMPart;
     private FConnexion fichCon;
     private FMenuEnt fichMEnt;
+    private FMenuCentre fichMCentre;
     //ajouter attributs pour autres fiches
     private Plateforme maPlat;
     Utilisateur uti;
@@ -31,6 +33,7 @@ public class FAccueil extends javax.swing.JFrame {
         fichMPart = new FMenuPart(this, false);
         fichCon = new FConnexion(this, false);
         fichMEnt = new FMenuEnt(this, false);
+        fichMCentre = new FMenuCentre(this, false);
         //rajouter ici les autres fiches
         maPlat = new Plateforme();
         try {
@@ -40,9 +43,8 @@ public class FAccueil extends javax.swing.JFrame {
             maPlat.chargerDemandes();
             maPlat.MAJ();
         } catch (IOException ex) {
-
+            JOptionPane.showMessageDialog(this, "Les données n'ont pas pu être chargées");
         }
-
     }
 
     //gettas (accessors)
@@ -60,6 +62,10 @@ public class FAccueil extends javax.swing.JFrame {
 
     public FMenuEnt getFichMEnt() {
         return fichMEnt;
+    }
+
+    public FMenuCentre getFichMCentre() {
+        return fichMCentre;
     }
 
     public void setUti(Utilisateur uti) {
@@ -127,13 +133,11 @@ public class FAccueil extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bInscriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bInscriptionActionPerformed
-        // TODO add your handling code here:
         this.setVisible(false);
         fichInsc.setVisible(true);
     }//GEN-LAST:event_bInscriptionActionPerformed
 
     private void bConnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bConnexionActionPerformed
-        // TODO add your handling code here:
         this.setVisible(false);
         fichCon.setVisible(true);
     }//GEN-LAST:event_bConnexionActionPerformed

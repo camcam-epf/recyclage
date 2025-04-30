@@ -15,6 +15,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import ptraitement.CentreTri;
 
 /**
  *
@@ -285,174 +286,34 @@ public class Plateforme {
         }
     }
 
-    public void modifier(CentreTri centre) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println(centre + """
-                           \nQue souhaitez-vous modifier (donnez le numero) ? : 
-                           1.votre email
-                           2.votre mot de passe
-                           3.votre nom
-                           4.votre numero de telephone
-                           5.votre adresse
-                           6.votre heure d'ouverture
-                           7.votre heure de fermeture
-                           8.vos types de dechets acceptes
-                           9.votre capacite de stockage""");
-        int rep = sc.nextInt();
-        sc.nextLine();
-        switch (rep) {
-            case 1 -> {
-                System.out.println("Entrez votre nouvel email");
-                String reponse = sc.nextLine();
-                centre.setMail(reponse);
-            }
-            case 2 -> {
-                System.out.println("Entrez votre nouveau mot de passe");
-                String reponse = sc.nextLine();
-                centre.setMdp(reponse);
-            }
-            case 3 -> {
-                System.out.println("Entrez votre nouveau nom");
-                String reponse = sc.nextLine();
-                centre.setNom(reponse);
-            }
-            case 4 -> {
-                System.out.println("Entrez votre nouveau numero de telephone");
-                String reponse = sc.nextLine();
-                centre.setTel(reponse);
-            }
-            case 5 -> {
-                System.out.println("Entrez votre nouvelle adrese");
-                String reponse = sc.nextLine();
-                centre.setAdresse(reponse);
-            }
-            case 6 -> {
-                System.out.println("Entrez votre nouvelle heure d'ouverture");
-                LocalTime reponse = LocalTime.parse(sc.nextLine());
-                centre.setOuverture(reponse);
-            }
-            case 7 -> {
-                System.out.println("Entrez votre nouvelle heure de fermeture");
-                LocalTime reponse = LocalTime.parse(sc.nextLine());
-                centre.setFermeture(reponse);
-            }
-            case 8 -> {
-                System.out.println("Voulez-vous ajouter un type de dechet (1) ou en retirer un (2) ?");
-                int reponse = sc.nextInt();
-                sc.nextLine();
-                switch (reponse) {
-                    case 1 -> {
-                        System.out.println("Entrez le type de dechets a ajouter");
-                        String stock = sc.nextLine();
-                        ArrayList<String> stock1 = centre.getTypeDechetAccepte();
-                        stock1.add(stock);
-                        centre.setTypeDechetAccepte(stock1);
-                    }
-                    case 2 -> {
-                        System.out.println("Entrez le type de dechet a retirer");
-                        String stock = sc.nextLine();
-                        if (centre.getTypeDechetAccepte().contains(stock)) {
-                            ArrayList<String> stock1 = centre.getTypeDechetAccepte();
-                            stock1.remove(stock);
-                            centre.setTypeDechetAccepte(stock1);
-                        } else {
-                            System.out.println("Ce type de dechet n'est pas dans votre liste actuelle");
-                        }
-                    }
-                }
-            }
-            case 9 -> {
-                System.out.println("Entrez votre nouvelle capacite de stockage");
-                float reponse = sc.nextFloat();
-                centre.setCapacite(reponse);
-            }
-        }
+    public void modifier(CentreTri centre, String email, String mdp, String nom, String tel, String adresse, LocalTime ouv, LocalTime ferm,
+            ArrayList<String> typeD, float capacite) {
+        centre.setMail(email);
+        centre.setMdp(mdp);
+        centre.setNom(nom);
+        centre.setTel(tel);
+        centre.setAdresse(adresse);
+        centre.setOuverture(ouv);
+        centre.setFermeture(ferm);
+        centre.setTypeDechetAccepte(typeD);
+        centre.setCapacite(capacite);
     }
 
-    public void modifier(Entreprise ent) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println(ent + """
-                           \nQue souhaitez-vous modifier (donnez le numero) ? : 
-                           1.votre email
-                           2.votre mot de passe
-                           3.votre nom
-                           4.votre numero de telephone
-                           5.votre adresse""");
-        int rep = sc.nextInt();
-        sc.nextLine();
-        switch (rep) {
-            case 1 -> {
-                System.out.println("Entrez votre nouvel email");
-                String reponse = sc.nextLine();
-                ent.setMail(reponse);
-            }
-            case 2 -> {
-                System.out.println("Entrez votre nouveau mot de passe");
-                String reponse = sc.nextLine();
-                ent.setMdp(reponse);
-            }
-            case 3 -> {
-                System.out.println("Entrez votre nouveau nom");
-                String reponse = sc.nextLine();
-                ent.setNom(reponse);
-            }
-            case 4 -> {
-                System.out.println("Entrez votre nouveau numero de telephone");
-                String reponse = sc.nextLine();
-                ent.setTel(reponse);
-            }
-            case 5 -> {
-                System.out.println("Entrez votre nouvelle adrese");
-                String reponse = sc.nextLine();
-                ent.setAdresse(reponse);
-            }
-        }
+    public void modifier(Entreprise ent, String email, String mdp, String nom, String tel, String adresse) {
+        ent.setMail(email);
+        ent.setMdp(mdp);
+        ent.setNom(nom);
+        ent.setTel(tel);
+        ent.setAdresse(adresse);
     }
 
-    public void modifier(Particulier parti) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println(parti + """
-                           \nQue souhaitez-vous modifier (donnez le numero) ? : 
-                           1.votre email
-                           2.votre mot de passe
-                           3.votre nom
-                           4.votre prenom
-                           5.votre numero de telephone
-                           6.votre adresse""");
-        int rep = sc.nextInt();
-        sc.nextLine();
-        switch (rep) {
-            case 1 -> {
-                System.out.println("Entrez votre nouvel email");
-                String reponse = sc.nextLine();
-                parti.setMail(reponse);
-            }
-            case 2 -> {
-                System.out.println("Entrez votre nouveau mot de passe");
-                String reponse = sc.nextLine();
-                parti.setMdp(reponse);
-            }
-            case 3 -> {
-                System.out.println("Entrez votre nouveau nom");
-                String reponse = sc.nextLine();
-                parti.setNom(reponse);
-            }
-            case 4 -> {
-                System.out.println("Entrez votre nouveau prenom");
-                String reponse = sc.nextLine();
-                parti.setPrenom(reponse);
-            }
-            case 5 -> {
-                System.out.println("Entrez votre nouveau numero de telephone");
-                String reponse = sc.nextLine();
-                parti.setTel(reponse);
-            }
-            case 6 -> {
-                System.out.println("Entrez votre nouvelle adrese");
-                String reponse = sc.nextLine();
-                parti.setAdresse(reponse);
-            }
-        }
+    public void modifier(Particulier parti, String email, String mdp, String nom, String prenom, String tel, String adresse) {
+        parti.setMail(email);
+        parti.setMdp(mdp);
+        parti.setNom(nom);
+        parti.setPrenom(prenom);
+        parti.setTel(tel);
+        parti.setAdresse(adresse);
     }
 
     public void demandeCollecte(Entreprise ent) {

@@ -1,2 +1,2 @@
-centre.tri@gmail.com - azerty - centre23 - 0645446890 - 24 rue de la porte - [] - [electromenager, informatique, telecommunication] - 10:00 - 17:00 - 34.0
-centre@tri.fr - loulaloula - Centre vive le tri - 068654546 - 21 rue du tri - [] - [informatique, menager] - 09:00 - 18:00 - 54.0
+centre.tri@gmail.com - azerty - centre23 - 0645446890 - 24 rue de la porte - [] - [Electromenager, Informatique, Telecommunication] - 10:00 - 17:00 - 34.0
+centre@tri.fr - loulaloula - Centre vive le tri - 068654547 - 21 rue du tri - [] - [Informatique, Jouets] - 09:00 - 18:00 - 54.0
