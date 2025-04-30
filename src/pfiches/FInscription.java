@@ -21,8 +21,8 @@ import ptraitement.Utilisateur;
  */
 public class FInscription extends javax.swing.JDialog {
 
-    ArrayList<String> DechetsPossibles;
-    Utilisateur uti;
+    private ArrayList<String> DechetsPossibles;
+    private Utilisateur uti;
 
     /**
      * Creates new form FInscription
@@ -31,12 +31,7 @@ public class FInscription extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         PCentre.setVisible(false);
-        DechetsPossibles = new ArrayList<>();
-        DechetsPossibles.add("Electromenager");
-        DechetsPossibles.add("Informatique");
-        DechetsPossibles.add("Telecommunication");
-        DechetsPossibles.add("Jouets");
-        DechetsPossibles.add("Cameras");
+        DechetsPossibles = ((FAccueil) getParent()).getDechetsPos();
         DefaultListModel<String> model = new DefaultListModel<>();
         for (String dechet : DechetsPossibles) {
             model.addElement(dechet);

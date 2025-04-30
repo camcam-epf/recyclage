@@ -5,6 +5,7 @@
 package pfiches;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import ptraitement.Plateforme;
 import ptraitement.Utilisateur;
@@ -22,13 +23,20 @@ public class FAccueil extends javax.swing.JFrame {
     private FMenuCentre fichMCentre;
     //ajouter attributs pour autres fiches
     private Plateforme maPlat;
-    Utilisateur uti;
+    private Utilisateur uti;
+    private ArrayList<String> DechetsPossibles;
 
     /**
      * Creates new form FAccueil
      */
     public FAccueil() {
         initComponents();
+        DechetsPossibles = new ArrayList<>();
+        DechetsPossibles.add("Electromenager");
+        DechetsPossibles.add("Informatique");
+        DechetsPossibles.add("Telecommunication");
+        DechetsPossibles.add("Jouets");
+        DechetsPossibles.add("Cameras");
         fichInsc = new FInscription(this, false);
         fichMPart = new FMenuPart(this, false);
         fichCon = new FConnexion(this, false);
@@ -74,6 +82,14 @@ public class FAccueil extends javax.swing.JFrame {
 
     public Utilisateur getUti() {
         return uti;
+    }
+
+    public ArrayList<String> getDechetsPos() {
+        return DechetsPossibles;
+    }
+
+    public void setDechetsPos(ArrayList<String> DechetsPos) {
+        DechetsPossibles = DechetsPos;
     }
 
     /**

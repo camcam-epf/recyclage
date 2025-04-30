@@ -15,6 +15,7 @@ public class FMenuCentre extends javax.swing.JDialog {
 
     private FModifierInfos fichMInf;
     private Utilisateur uti;
+
     /**
      * Creates new form FMenuCentre
      */

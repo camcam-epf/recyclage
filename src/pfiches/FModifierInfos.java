@@ -34,12 +34,7 @@ public class FModifierInfos extends javax.swing.JDialog {
     public FModifierInfos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        DechetsPossibles = new ArrayList<>();
-        DechetsPossibles.add("Electromenager");
-        DechetsPossibles.add("Informatique");
-        DechetsPossibles.add("Telecommunication");
-        DechetsPossibles.add("Jouets");
-        DechetsPossibles.add("Cameras");
+        DechetsPossibles = ((FAccueil) getParent()).getDechetsPos();
         DefaultListModel<String> model = new DefaultListModel<>();
         for (String dechet : DechetsPossibles) {
             model.addElement(dechet);

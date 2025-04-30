@@ -129,7 +129,7 @@ public class FConnexion extends javax.swing.JDialog {
             ((FAccueil) getParent()).setUti(uti);
             this.setVisible(false);
             ((FAccueil) getParent()).getFichMEnt().setVisible(true);
-        } else if (uti instanceof CentreTri){
+        } else if (uti instanceof CentreTri) {
             ((FAccueil) getParent()).setUti(uti);
             this.setVisible(false);
             ((FAccueil) getParent()).getFichMCentre().setVisible(true);

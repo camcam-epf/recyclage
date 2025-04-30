@@ -13,9 +13,11 @@ import ptraitement.Utilisateur;
  * @author camil
  */
 public class FMenuPart extends javax.swing.JDialog {
-    
+
     private FModifierInfos fichMInf;
+    private FDeclaDepot fichDDepot;
     private Utilisateur uti;
+
     /**
      * Creates new form FMenuPart
      */
@@ -135,7 +137,9 @@ public class FMenuPart extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bAjoutDepotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAjoutDepotActionPerformed
-        // TODO add your handling code here:
+        fichDDepot = new FDeclaDepot(((FAccueil) getParent()), false);
+        this.setVisible(false);
+        fichDDepot.setVisible(true);
     }//GEN-LAST:event_bAjoutDepotActionPerformed
 
     private void bHistoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bHistoActionPerformed
@@ -148,7 +152,7 @@ public class FMenuPart extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowClosed
 
     private void bInfosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bInfosActionPerformed
-        fichMInf=new FModifierInfos(((FAccueil) getParent()), false);
+        fichMInf = new FModifierInfos(((FAccueil) getParent()), false);
         this.setVisible(false);
         fichMInf.setVisible(true);
     }//GEN-LAST:event_bInfosActionPerformed
@@ -162,7 +166,7 @@ public class FMenuPart extends javax.swing.JDialog {
         this.setVisible(false);
         this.getParent().setVisible(true);
     }//GEN-LAST:event_bDecoActionPerformed
-  
+
     /**
      * @param args the command line arguments
      */
