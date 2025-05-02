@@ -4,11 +4,21 @@
  */
 package pfiches;
 
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import ptraitement.CentreTri;
+import ptraitement.Plateforme;
+
 /**
  *
  * @author camil
  */
 public class FRechercheCentre extends javax.swing.JDialog {
+
+    private Plateforme maPlat;
+    ArrayList<String> DechetsPossibles;
 
     /**
      * Creates new form FRechercheCentre
@@ -16,6 +26,16 @@ public class FRechercheCentre extends javax.swing.JDialog {
     public FRechercheCentre(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        cbDechets.setVisible(false);
+        cbCentres2.setVisible(false);
+        maPlat = ((FAccueil) getParent()).getMaPlat();
+        DechetsPossibles = ((FAccueil) getParent()).getDechetsPos();
+        cbDechets.setModel(new DefaultComboBoxModel<>(DechetsPossibles.toArray(new String[0])));
+        ArrayList<String> centres = new ArrayList<>();
+        for (int i = 0; i < maPlat.getListeCentres().size(); i++) {
+            centres.add(maPlat.getListeCentres().get(i).getNom());
+        }
+        cbCentres.setModel(new DefaultComboBoxModel<>(centres.toArray(new String[0])));
     }
 
     /**
@@ -27,9 +47,13 @@ public class FRechercheCentre extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        buttonGroup = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
+        rbAfficher = new javax.swing.JRadioButton();
+        rbRechercher = new javax.swing.JRadioButton();
+        cbCentres = new javax.swing.JComboBox<>();
+        cbDechets = new javax.swing.JComboBox<>();
+        cbCentres2 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -38,37 +62,82 @@ public class FRechercheCentre extends javax.swing.JDialog {
             }
         });
 
-        jButton1.setText("jButton1");
-
-        jButton2.setText("jButton2");
-
         jLabel1.setText("Voulez-vous :");
+
+        buttonGroup.add(rbAfficher);
+        rbAfficher.setSelected(true);
+        rbAfficher.setText("Afficher la liste des centres");
+        rbAfficher.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbAfficherActionPerformed(evt);
+            }
+        });
+
+        buttonGroup.add(rbRechercher);
+        rbRechercher.setText("Recherche a partir des déchets acceptés");
+        rbRechercher.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbRechercherActionPerformed(evt);
+            }
+        });
+
+        cbCentres.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbCentres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCentresActionPerformed(evt);
+            }
+        });
+
+        cbDechets.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbDechets.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbDechetsActionPerformed(evt);
+            }
+        });
+
+        cbCentres2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbCentres2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCentres2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(79, 79, 79))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(146, 146, 146)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rbAfficher)
+                    .addComponent(cbCentres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbCentres2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rbRechercher)
+                    .addComponent(cbDechets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addContainerGap(226, Short.MAX_VALUE))
+                    .addComponent(rbAfficher)
+                    .addComponent(rbRechercher))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbCentres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbDechets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(cbCentres2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(166, Short.MAX_VALUE))
         );
 
         pack();
@@ -77,6 +146,53 @@ public class FRechercheCentre extends javax.swing.JDialog {
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         System.exit(0);
     }//GEN-LAST:event_formWindowClosed
+
+    private void rbAfficherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbAfficherActionPerformed
+        cbCentres.setVisible(true);
+        cbDechets.setVisible(false);
+        cbCentres2.setVisible(false);
+    }//GEN-LAST:event_rbAfficherActionPerformed
+
+    private void cbCentresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCentresActionPerformed
+        String ncentre = (String) cbCentres.getSelectedItem();
+        CentreTri centre = null;
+        for (int i = 0; i < maPlat.getListeCentres().size(); i++) {
+            if (ncentre.equals(maPlat.getListeCentres().get(i).getNom())) {
+                centre = maPlat.getListeCentres().get(i);
+            }
+        }
+        JOptionPane.showMessageDialog(this, "Heure d'ouverture : " + centre.getOuverture() + "\nHeure de fermeture : "
+                + centre.getFermeture() + "\nType de dechets acceptes : " + centre.getTypeDechetAccepte());
+    }//GEN-LAST:event_cbCentresActionPerformed
+
+    private void rbRechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbRechercherActionPerformed
+        cbDechets.setVisible(true);
+        cbCentres.setVisible(false);
+    }//GEN-LAST:event_rbRechercherActionPerformed
+
+    private void cbDechetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDechetsActionPerformed
+        String type = (String) cbDechets.getSelectedItem();
+        ArrayList<String> ncentres = new ArrayList<>();
+        for (int i = 0; i < maPlat.getListeCentres().size(); i++) {
+            if (maPlat.getListeCentres().get(i).getTypeDechetAccepte().contains(type)) {
+                ncentres.add(maPlat.getListeCentres().get(i).getNom());
+            }
+        }
+        cbCentres2.setVisible(true);
+        cbCentres2.setModel(new DefaultComboBoxModel<>(ncentres.toArray(new String[0])));
+    }//GEN-LAST:event_cbDechetsActionPerformed
+
+    private void cbCentres2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCentres2ActionPerformed
+        String ncentre = (String) cbCentres.getSelectedItem();
+        CentreTri centre = null;
+        for (int i = 0; i < maPlat.getListeCentres().size(); i++) {
+            if (ncentre.equals(maPlat.getListeCentres().get(i).getNom())) {
+                centre = maPlat.getListeCentres().get(i);
+            }
+        }
+        JOptionPane.showMessageDialog(this, "Heure d'ouverture : " + centre.getOuverture() + "\nHeure de fermeture : "
+                + centre.getFermeture() + "\nType de dechets acceptes : " + centre.getTypeDechetAccepte());
+    }//GEN-LAST:event_cbCentres2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -121,8 +237,12 @@ public class FRechercheCentre extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.ButtonGroup buttonGroup;
+    private javax.swing.JComboBox<String> cbCentres;
+    private javax.swing.JComboBox<String> cbCentres2;
+    private javax.swing.JComboBox<String> cbDechets;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JRadioButton rbAfficher;
+    private javax.swing.JRadioButton rbRechercher;
     // End of variables declaration//GEN-END:variables
 }
