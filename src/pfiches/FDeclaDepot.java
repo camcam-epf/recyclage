@@ -90,7 +90,7 @@ public class FDeclaDepot extends javax.swing.JDialog {
 
         jLabel3.setText("Date du dépot");
 
-        sDate.setModel(new javax.swing.SpinnerDateModel());
+        sDate.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, new java.util.Date(), java.util.Calendar.DAY_OF_MONTH));
 
         bValider.setText("Valider");
         bValider.addActionListener(new java.awt.event.ActionListener() {
@@ -123,7 +123,7 @@ public class FDeclaDepot extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(48, 48, 48)
-                                .addComponent(sDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(sDate, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(ldechet)

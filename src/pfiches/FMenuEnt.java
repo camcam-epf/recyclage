@@ -16,6 +16,7 @@ public class FMenuEnt extends javax.swing.JDialog {
     private FModifierInfos fichMInf;
     private Utilisateur uti;
     private FDemandeCollecte fichDCollecte;
+    private FHisto fichHisto;
 
     /**
      * Creates new form FMenuEnt
@@ -136,8 +137,11 @@ public class FMenuEnt extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bHistoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bHistoActionPerformed
-        uti = ((FAccueil) getParent()).getUti();
-        JOptionPane.showMessageDialog(this, uti.getHisto());
+//        uti = ((FAccueil) getParent()).getUti();
+//        JOptionPane.showMessageDialog(this, uti.getHisto());
+        fichHisto = new FHisto(((FAccueil) getParent()), false);
+        this.setVisible(false);
+        fichHisto.setVisible(true);
     }//GEN-LAST:event_bHistoActionPerformed
 
     private void bInfosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bInfosActionPerformed
