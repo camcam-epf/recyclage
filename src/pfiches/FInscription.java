@@ -293,6 +293,7 @@ public class FInscription extends javax.swing.JDialog {
         LocalTime ferm = LocalTime.parse((CharSequence) cbFermeture.getSelectedItem());
         ArrayList<String> typeD = new ArrayList<>(liDechets.getSelectedValuesList());
         float capacite = ((Number) sCapacite.getValue()).floatValue();
+        boolean existe = false;
         if (email.isEmpty() || mdp.isEmpty() || nom.isEmpty() || tel.isEmpty() || adresse.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Veuilliez remplir tout les champs avant de valider");
         } else {
@@ -302,37 +303,65 @@ public class FInscription extends javax.swing.JDialog {
                         if (prenom.isEmpty()) {
                             JOptionPane.showMessageDialog(this, "Veuilliez remplir tout les champs avant de valider");
                         } else {
-                            uti = maPlat.inscriptionPart(email, mdp, nom, prenom, tel, adresse);
+                            for (int i = 0; i < maPlat.getListeClients().size(); i++) {
+                                if (maPlat.getListeClients().get(i).getMail().equals(email)) {
+                                    existe = true;
+                                }
+                            }
+                            if (existe == false) {
+                                uti = maPlat.inscriptionPart(email, mdp, nom, prenom, tel, adresse);
+                                ((FAccueil) getParent()).setUti(uti);
+                                maPlat.sauvegarderClients();
+                                this.setVisible(false);
+                                ((FAccueil) getParent()).getFichMPart().setVisible(true);
+                            }
+                        }
+                        break;
+                    case 1:
+                        for (int i = 0; i < maPlat.getListeClients().size(); i++) {
+                            if (maPlat.getListeClients().get(i).getMail().equals(email)) {
+                                existe = true;
+
+                            }
+                        }
+                        if (existe == false) {
+                            uti = maPlat.inscriptionEnt(email, mdp, nom, tel, adresse);
                             ((FAccueil) getParent()).setUti(uti);
                             maPlat.sauvegarderClients();
                             this.setVisible(false);
-                            ((FAccueil) getParent()).getFichMPart().setVisible(true);
-                            break;
+                            ((FAccueil) getParent()).getFichMEnt().setVisible(true);
                         }
-                    case 1:
-                        uti = maPlat.inscriptionEnt(email, mdp, nom, tel, adresse);
-                        ((FAccueil) getParent()).setUti(uti);
-                        maPlat.sauvegarderClients();
-                        this.setVisible(false);
-                        ((FAccueil) getParent()).getFichMEnt().setVisible(true);
                         break;
                     case 2:
                         if (liDechets.isSelectionEmpty()) {
                             JOptionPane.showMessageDialog(this, "Veuilliez remplir tout les champs avant de valider");
                         } else {
-                            uti = maPlat.inscriptionCentre(email, mdp, nom, tel, adresse, typeD, ouv, ferm, capacite);
-                            ((FAccueil) getParent()).setUti(uti);
-                            maPlat.sauvegarderCentres();
-                            break;
+                            for (int i = 0; i < maPlat.getListeCentres().size(); i++) {
+                                if (maPlat.getListeCentres().get(i).getMail().equals(email)) {
+                                    existe = true;
+                                }
+                            }
+                            if (existe == false) {
+                                uti = maPlat.inscriptionCentre(email, mdp, nom, tel, adresse, typeD, ouv, ferm, capacite);
+                                ((FAccueil) getParent()).setUti(uti);
+                                maPlat.sauvegarderCentres();
+                                this.setVisible(false);
+                                ((FAccueil) getParent()).getFichMCentre().setVisible(true);
+                            }
                         }
+                        break;
                     default:
                         break;
                 }
             } catch (IOException ex) {
-                //message d'erreur
+                JOptionPane.showMessageDialog(this, "Une erreur s'est produite");
             }
         }
-
+        if (existe) {
+            JOptionPane.showMessageDialog(this, "Vous avez déjà un compte.");
+            this.setVisible(false);
+            ((FAccueil) getParent()).getFichCon().setVisible(true);
+        }
 
     }//GEN-LAST:event_bValiderActionPerformed
 

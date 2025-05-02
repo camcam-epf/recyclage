@@ -63,6 +63,10 @@ public class FAccueil extends javax.swing.JFrame {
     public FInscription getFichInsc() {
         return fichInsc;
     }
+    
+    public FConnexion getFichCon(){
+        return fichCon;
+    }
 
     public Plateforme getMaPlat() {
         return maPlat;
