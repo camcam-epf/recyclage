@@ -313,6 +313,8 @@ public class FInscription extends javax.swing.JDialog {
                         uti = maPlat.inscriptionEnt(email, mdp, nom, tel, adresse);
                         ((FAccueil) getParent()).setUti(uti);
                         maPlat.sauvegarderClients();
+                        this.setVisible(false);
+                            ((FAccueil) getParent()).getFichMEnt().setVisible(true);
                         break;
                     case 2:
                         if (liDechets.isSelectionEmpty()) {
