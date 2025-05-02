@@ -314,7 +314,7 @@ public class FInscription extends javax.swing.JDialog {
                         ((FAccueil) getParent()).setUti(uti);
                         maPlat.sauvegarderClients();
                         this.setVisible(false);
-                            ((FAccueil) getParent()).getFichMEnt().setVisible(true);
+                        ((FAccueil) getParent()).getFichMEnt().setVisible(true);
                         break;
                     case 2:
                         if (liDechets.isSelectionEmpty()) {

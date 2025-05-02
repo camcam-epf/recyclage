@@ -53,6 +53,10 @@ public class Plateforme {
     public ArrayList<CentreTri> getListeCentres() {
         return listeCentres;
     }
+    
+    public ArrayList<Client> getListeClients() {
+        return listeClients;
+    }
 
     public Particulier inscriptionPart(String email, String mdp, String nom, String prenom, String tel, String adresse) {
 
@@ -64,7 +68,6 @@ public class Plateforme {
 //        }
         Particulier particulier = new Particulier(email, mdp, nom, prenom, tel, adresse);
         listeClients.add(particulier);
-//                System.out.println(particulier);
         return particulier;
 
     }
@@ -154,7 +157,6 @@ public class Plateforme {
                 }
                 ligne = br.readLine();
             }
-//        System.out.println(listeClients);
         }
     }
 
@@ -185,7 +187,6 @@ public class Plateforme {
                 listeCentres.add(centre);
                 ligne = br.readLine();
             }
-//        System.out.println(listeCentres);
         }
     }
 
@@ -405,27 +406,6 @@ public class Plateforme {
                 Centre = listeCentres.get(i);
             }
         }
-        int numero = 1;
-        ArrayList<String> centres = new ArrayList<>();
-//        System.out.println("Les centres ci-dessous prennent en charge le type de dechets que vous avez depose :");
-//        for (int i = 0; i < listeCentres.size(); i++) {
-//            if (listeCentres.get(i).getTypeDechetAccepte().contains(type)) {
-//                System.out.println(numero + "." + listeCentres.get(i).getNom());
-//                numero += 1;
-//                centres.add(listeCentres.get(i).getMail());
-//            }
-//        }
-//        if (numero == 1) {
-//            System.out.println("Aucun centre n'accepte ce type de déchet.");
-//        }
-//        System.out.println("Dans lequel avez vous deposer vos dechets (numero)?");
-//        numero = scanner.nextInt();
-//        System.out.println("Entrez la quantite du depot");
-//        float qtte = scanner.nextFloat();
-//        System.out.println("Entrez la date du depot (Format: YYYY-MM-DD) :");
-//        scanner.nextLine();
-//
-//        LocalDate date = LocalDate.parse(scanner.nextLine());
         Dechet newdechet = new Dechet(ID + listeDechets.size(), type, qtte, parti.getMail(), date, Centre.getMail());
         listeDechets.add(newdechet);
         ArrayList<String> histo = parti.getHisto();
@@ -433,7 +413,7 @@ public class Plateforme {
         parti.setHisto(histo);
     }
 
-    public void MAJ() {
+public void MAJ() {
         for (int i = 0; i < listeDemandes.size(); i++) {
             if (listeDemandes.get(i).getDateCollecte() != null && listeDemandes.get(i).getDateCollecte().isBefore(LocalDate.now())) {
                 String mailClient = listeDemandes.get(i).getClient();
