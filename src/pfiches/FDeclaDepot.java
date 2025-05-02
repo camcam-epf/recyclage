@@ -4,11 +4,18 @@
  */
 package pfiches;
 
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JSpinner;
 import pfiches.FAccueil;
+import ptraitement.Particulier;
+import ptraitement.Plateforme;
 
 /**
  *
@@ -17,6 +24,7 @@ import pfiches.FAccueil;
 public class FDeclaDepot extends javax.swing.JDialog {
 
     private ArrayList<String> DechetsPossibles;
+    private Particulier part;
 
     /**
      * Creates new form FDeclaDepot
@@ -26,6 +34,9 @@ public class FDeclaDepot extends javax.swing.JDialog {
         initComponents();
         DechetsPossibles = ((FAccueil) getParent()).getDechetsPos();
         cbType.setModel(new DefaultComboBoxModel<>(DechetsPossibles.toArray(new String[0])));
+        JSpinner.DateEditor editor = new JSpinner.DateEditor(sDate, "dd/MM/yyyy");
+        sDate.setEditor(editor);
+        part = (Particulier) ((FAccueil) getParent()).getUti();
     }
 
     /**
@@ -38,9 +49,17 @@ public class FDeclaDepot extends javax.swing.JDialog {
     private void initComponents() {
 
         ldechet = new javax.swing.JLabel();
-        TfDechet = new javax.swing.JTextField();
+        tfDechet = new javax.swing.JTextField();
         lType = new javax.swing.JLabel();
         cbType = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        cbCentres = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        sQtte = new javax.swing.JSpinner();
+        jLabel3 = new javax.swing.JLabel();
+        sDate = new javax.swing.JSpinner();
+        bValider = new javax.swing.JButton();
+        bRetour = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -54,6 +73,37 @@ public class FDeclaDepot extends javax.swing.JDialog {
         lType.setText("Type du dechet déposé");
 
         cbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTypeActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Centre dans lequel vous l'avez déposé");
+
+        cbCentres.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Veuillez selectionner un type de déchets" }));
+
+        jLabel2.setText("Quantite du dépot en tonnes");
+
+        sQtte.setModel(new javax.swing.SpinnerNumberModel(0.5f, 0.0f, null, 0.5f));
+
+        jLabel3.setText("Date du dépot");
+
+        sDate.setModel(new javax.swing.SpinnerDateModel());
+
+        bValider.setText("Valider");
+        bValider.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bValiderActionPerformed(evt);
+            }
+        });
+
+        bRetour.setText("Retour");
+        bRetour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bRetourActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -62,13 +112,34 @@ public class FDeclaDepot extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ldechet)
-                    .addComponent(lType))
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TfDechet, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(133, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(bRetour)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bValider)
+                        .addGap(43, 43, 43))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(48, 48, 48)
+                                .addComponent(sDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ldechet)
+                                    .addComponent(lType))
+                                .addGap(34, 34, 34)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfDechet, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(sQtte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbCentres, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(95, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -76,12 +147,28 @@ public class FDeclaDepot extends javax.swing.JDialog {
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ldechet)
-                    .addComponent(TfDechet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfDechet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lType)
                     .addComponent(cbType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(202, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(cbCentres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(sQtte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bValider)
+                    .addComponent(bRetour))
+                .addGap(30, 30, 30))
         );
 
         pack();
@@ -90,6 +177,42 @@ public class FDeclaDepot extends javax.swing.JDialog {
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         System.exit(0);
     }//GEN-LAST:event_formWindowClosed
+
+    private void cbTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTypeActionPerformed
+        Plateforme maPlat = ((FAccueil) getParent()).getMaPlat();
+        String type = (String) cbType.getSelectedItem();
+        ArrayList<String> centres = new ArrayList<>();
+        for (int i = 0; i < maPlat.getListeCentres().size(); i++) {
+            if (maPlat.getListeCentres().get(i).getTypeDechetAccepte().contains(type)) {
+                centres.add(maPlat.getListeCentres().get(i).getNom());
+            }
+        }
+        cbCentres.setModel(new DefaultComboBoxModel<>(centres.toArray(new String[0])));
+    }//GEN-LAST:event_cbTypeActionPerformed
+
+    private void bRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRetourActionPerformed
+        this.setVisible(false);
+        ((FAccueil) getParent()).getFichMPart().setVisible(true);
+    }//GEN-LAST:event_bRetourActionPerformed
+
+    private void bValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bValiderActionPerformed
+        Plateforme maPlat = ((FAccueil) getParent()).getMaPlat();
+        String ID = tfDechet.getText();
+        String type = (String) cbType.getSelectedItem();
+        String centre = (String) cbCentres.getSelectedItem();
+        float qtte = (float) sQtte.getValue();
+        Object Date = sDate.getValue();
+        maPlat.declarerdepot(part, ID, type, centre, qtte, Date);
+        this.setVisible(false);
+        ((FAccueil) getParent()).getFichMPart().setVisible(true);
+        try {
+            maPlat.sauvegarderClients();
+            maPlat.sauvegarderDechets();
+        } catch (IOException ex) {
+            
+        }
+        
+    }//GEN-LAST:event_bValiderActionPerformed
 
     /**
      * @param args the command line arguments
@@ -134,9 +257,17 @@ public class FDeclaDepot extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField TfDechet;
+    private javax.swing.JButton bRetour;
+    private javax.swing.JButton bValider;
+    private javax.swing.JComboBox<String> cbCentres;
     private javax.swing.JComboBox<String> cbType;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lType;
     private javax.swing.JLabel ldechet;
+    private javax.swing.JSpinner sDate;
+    private javax.swing.JSpinner sQtte;
+    private javax.swing.JTextField tfDechet;
     // End of variables declaration//GEN-END:variables
 }

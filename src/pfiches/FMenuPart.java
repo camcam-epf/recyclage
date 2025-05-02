@@ -17,6 +17,7 @@ public class FMenuPart extends javax.swing.JDialog {
     private FModifierInfos fichMInf;
     private FDeclaDepot fichDDepot;
     private Utilisateur uti;
+    private FRechercheCentre fichRCentre;
 
     /**
      * Creates new form FMenuPart
@@ -158,7 +159,9 @@ public class FMenuPart extends javax.swing.JDialog {
     }//GEN-LAST:event_bInfosActionPerformed
 
     private void bTrouvCentreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTrouvCentreActionPerformed
-        // TODO add your handling code here:
+        fichRCentre = new FRechercheCentre(((FAccueil) getParent()), false);
+        this.setVisible(false);
+        fichRCentre.setVisible(true);
     }//GEN-LAST:event_bTrouvCentreActionPerformed
 
     private void bDecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDecoActionPerformed

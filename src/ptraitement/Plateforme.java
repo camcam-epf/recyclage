@@ -12,8 +12,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Scanner;
 import ptraitement.CentreTri;
 
@@ -46,6 +48,10 @@ public class Plateforme {
         Entreprise entreprise = new Entreprise(email, mdp, nom, tel, adresse);
         listeClients.add(entreprise);
         return entreprise;
+    }
+
+    public ArrayList<CentreTri> getListeCentres() {
+        return listeCentres;
     }
 
     public Particulier inscriptionPart(String email, String mdp, String nom, String prenom, String tel, String adresse) {
@@ -388,33 +394,39 @@ public class Plateforme {
         }
     }
 
-    public void declarerdepot(Particulier parti) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Quel nom souhaitez vous donner a votre dechet ?");
-        String ID = scanner.nextLine();
-        System.out.println("Quel est type de dechet du depot");
-        String type = scanner.nextLine();
-        int numero = 1;
-        ArrayList<String> centres = new ArrayList<>();
-        System.out.println("Les centres ci-dessous prennent en charge le type de dechets que vous avez depose :");
+    public void declarerdepot(Particulier parti, String ID, String type, String centre, float qtte, Object Date) {
+        Date dateUtil = (Date) Date; // Récupère la date du spinner
+        LocalDate date = dateUtil.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+        CentreTri Centre=null;
         for (int i = 0; i < listeCentres.size(); i++) {
-            if (listeCentres.get(i).getTypeDechetAccepte().contains(type)) {
-                System.out.println(numero + "." + listeCentres.get(i).getNom());
-                numero += 1;
-                centres.add(listeCentres.get(i).getMail());
+            if (listeCentres.get(i).getNom().equals(centre)) {
+                Centre = listeCentres.get(i);
             }
         }
-        if (numero == 1) {
-            System.out.println("Aucun centre n'accepte ce type de déchet.");
-        }
-        System.out.println("Dans lequel avez vous deposer vos dechets (numero)?");
-        numero = scanner.nextInt();
-        System.out.println("Entrez la quantite du depot");
-        float qtte = scanner.nextFloat();
-        System.out.println("Entrez la date du depot (Format: YYYY-MM-DD) :");
-        scanner.nextLine();
-        LocalDate date = LocalDate.parse(scanner.nextLine());
-        Dechet newdechet = new Dechet(ID + listeDechets.size(), type, qtte, parti.getMail(), date, centres.get(numero - 1));
+        int numero = 1;
+        ArrayList<String> centres = new ArrayList<>();
+//        System.out.println("Les centres ci-dessous prennent en charge le type de dechets que vous avez depose :");
+//        for (int i = 0; i < listeCentres.size(); i++) {
+//            if (listeCentres.get(i).getTypeDechetAccepte().contains(type)) {
+//                System.out.println(numero + "." + listeCentres.get(i).getNom());
+//                numero += 1;
+//                centres.add(listeCentres.get(i).getMail());
+//            }
+//        }
+//        if (numero == 1) {
+//            System.out.println("Aucun centre n'accepte ce type de déchet.");
+//        }
+//        System.out.println("Dans lequel avez vous deposer vos dechets (numero)?");
+//        numero = scanner.nextInt();
+//        System.out.println("Entrez la quantite du depot");
+//        float qtte = scanner.nextFloat();
+//        System.out.println("Entrez la date du depot (Format: YYYY-MM-DD) :");
+//        scanner.nextLine();
+//
+//        LocalDate date = LocalDate.parse(scanner.nextLine());
+        Dechet newdechet = new Dechet(ID + listeDechets.size(), type, qtte, parti.getMail(), date, Centre.getMail());
         listeDechets.add(newdechet);
         ArrayList<String> histo = parti.getHisto();
         histo.add(newdechet.getID());
