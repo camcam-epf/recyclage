@@ -4,7 +4,10 @@
  */
 package pfiches;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import ptraitement.Entreprise;
+import ptraitement.Plateforme;
 import ptraitement.Utilisateur;
 
 /**
@@ -14,7 +17,7 @@ import ptraitement.Utilisateur;
 public class FMenuEnt extends javax.swing.JDialog {
 
     private FModifierInfos fichMInf;
-    private Utilisateur uti;
+    private Entreprise ent;
     private FDemandeCollecte fichDCollecte;
     private FHisto fichHisto;
 
@@ -24,7 +27,10 @@ public class FMenuEnt extends javax.swing.JDialog {
     public FMenuEnt(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        uti = ((FAccueil) getParent()).getUti();
+        Utilisateur uti = ((FAccueil) getParent()).getUti();
+        if (uti instanceof Entreprise) {
+            ent = (Entreprise) uti;
+        }
     }
 
     /**
@@ -161,7 +167,18 @@ public class FMenuEnt extends javax.swing.JDialog {
     }//GEN-LAST:event_bDemandeCollecteActionPerformed
 
     private void bVoirCollecteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVoirCollecteActionPerformed
-        // TODO add your handling code here:
+        Utilisateur uti = ((FAccueil) getParent()).getUti();
+        if (uti instanceof Entreprise) {
+            ent = (Entreprise) uti;
+        }
+        Plateforme maPlat = ((FAccueil) getParent()).getMaPlat();
+        ArrayList<String> liste = new ArrayList();
+        for (int i = 0; i < maPlat.getListeDemandes().size(); i++) {
+            if (maPlat.getListeDemandes().get(i).getClient().equals(ent.getMail())) {
+                liste.add(maPlat.getListeDemandes().get(i).toString());
+            }
+        }
+        JOptionPane.showMessageDialog(this, String.join("\n\n", liste));
     }//GEN-LAST:event_bVoirCollecteActionPerformed
 
     private void bDecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDecoActionPerformed

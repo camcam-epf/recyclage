@@ -58,6 +58,10 @@ public class Plateforme {
         return listeClients;
     }
 
+    public ArrayList<Dechet> getListeDemandes(){
+        return listeDemandes;
+    }
+    
     public Particulier inscriptionPart(String email, String mdp, String nom, String prenom, String tel, String adresse) {
         Particulier particulier = new Particulier(email, mdp, nom, prenom, tel, adresse);
         listeClients.add(particulier);

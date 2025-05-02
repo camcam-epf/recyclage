@@ -4,7 +4,11 @@
  */
 package pfiches;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import ptraitement.CentreTri;
+import ptraitement.Entreprise;
+import ptraitement.Plateforme;
 import ptraitement.Utilisateur;
 
 /**
@@ -15,6 +19,7 @@ public class FMenuCentre extends javax.swing.JDialog {
 
     private FModifierInfos fichMInf;
     private Utilisateur uti;
+    private CentreTri centre;
 
     /**
      * Creates new form FMenuCentre
@@ -147,10 +152,6 @@ public class FMenuCentre extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_bVoirDCollectesActionPerformed
 
-    private void bVoirCollectesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVoirCollectesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bVoirCollectesActionPerformed
-
     private void bInfosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bInfosActionPerformed
         fichMInf = new FModifierInfos(((FAccueil) getParent()), false);
         this.setVisible(false);
@@ -162,6 +163,21 @@ public class FMenuCentre extends javax.swing.JDialog {
         this.setVisible(false);
         this.getParent().setVisible(true);
     }//GEN-LAST:event_bDecoActionPerformed
+
+    private void bVoirCollectesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVoirCollectesActionPerformed
+        uti = ((FAccueil) getParent()).getUti();
+        if (uti instanceof CentreTri) {
+            centre = (CentreTri) uti;
+        }
+        Plateforme maPlat = ((FAccueil) getParent()).getMaPlat();
+        ArrayList<String> liste = new ArrayList();
+        for (int i = 0; i < maPlat.getListeDemandes().size(); i++) {
+            if (maPlat.getListeDemandes().get(i).getCentre().equals(centre.getMail())) {
+                liste.add(maPlat.getListeDemandes().get(i).toString());
+            }
+        }
+        JOptionPane.showMessageDialog(this, String.join("\n\n", liste));
+    }//GEN-LAST:event_bVoirCollectesActionPerformed
 
     /**
      * @param args the command line arguments
