@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import pfiches.FAccueil;
 import ptraitement.Particulier;
@@ -209,7 +210,7 @@ public class FDeclaDepot extends javax.swing.JDialog {
             maPlat.sauvegarderClients();
             maPlat.sauvegarderDechets();
         } catch (IOException ex) {
-            
+            JOptionPane.showMessageDialog(this, "Une erreur s'est produite");
         }
         
     }//GEN-LAST:event_bValiderActionPerformed

@@ -15,6 +15,7 @@ public class FMenuEnt extends javax.swing.JDialog {
 
     private FModifierInfos fichMInf;
     private Utilisateur uti;
+    private FDemandeCollecte fichDCollecte;
 
     /**
      * Creates new form FMenuEnt
@@ -150,7 +151,9 @@ public class FMenuEnt extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowClosed
 
     private void bDemandeCollecteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDemandeCollecteActionPerformed
-        // TODO add your handling code here:
+        fichDCollecte = new FDemandeCollecte(((FAccueil) getParent()), false);
+        this.setVisible(false);
+        fichDCollecte.setVisible(true);
     }//GEN-LAST:event_bDemandeCollecteActionPerformed
 
     private void bVoirCollecteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVoirCollecteActionPerformed

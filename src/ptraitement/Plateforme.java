@@ -53,19 +53,12 @@ public class Plateforme {
     public ArrayList<CentreTri> getListeCentres() {
         return listeCentres;
     }
-    
+
     public ArrayList<Client> getListeClients() {
         return listeClients;
     }
 
     public Particulier inscriptionPart(String email, String mdp, String nom, String prenom, String tel, String adresse) {
-
-//        for (int i = 0; i < listeClients.size(); i++) {
-//            if (listeClients.get(i).getMail().equals(email)) {
-//                System.out.println("Vous avez deja un compte, veuillez vous connecter");
-//                connexion();
-//            }
-//        }
         Particulier particulier = new Particulier(email, mdp, nom, prenom, tel, adresse);
         listeClients.add(particulier);
         return particulier;
@@ -74,13 +67,6 @@ public class Plateforme {
 
     public CentreTri inscriptionCentre(String email, String mdp, String nom, String tel, String adresse, ArrayList<String> typeD,
             LocalTime ouverture, LocalTime fermeture, float capacite) {
-
-//        for (int i = 0; i < listeCentres.size(); i++) {
-//            if (listeCentres.get(i).getMail().equals(email)) {
-//                System.out.println("Vous avez deja un compte, veuillez vous connecter");
-//                connexion();
-//            }
-//        }
         CentreTri centre = new CentreTri(email, mdp, nom, tel, adresse, typeD, ouverture, fermeture, capacite);
         listeCentres.add(centre);
         return (centre);
@@ -257,42 +243,41 @@ public class Plateforme {
         return null;
     }
 
-    public void rechercherCentre() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Voulez-vous voir la liste des centres de recyclage (A) ou en chercher un a "
-                + "partir des dechets qu'il accepte (B) ?");
-        String rep = sc.nextLine();
-        switch (rep) {
-            case "A" -> {
-                for (int i = 0; i < listeCentres.size(); i++) {
-                    System.out.println(i + 1 + ". " + listeCentres.get(i).getNom());
-                }
-                System.out.println("De quel centre voulez-vous consulter les infos (donnez le numero) ?");
-                int reponse = sc.nextInt();
-                for (int j = 0; j < listeCentres.size(); j++) {
-                    if ((reponse - 1) == j) {
-                        System.out.println("Heure d'ouverture : " + listeCentres.get(j).getOuverture() + "\nHeure de fermeture : "
-                                + listeCentres.get(j).getFermeture() + "\nType de dechets acceptes : " + listeCentres.get(j).getTypeDechetAccepte());
-                    }
-                }
-            }
-            case "B" -> {
-                System.out.println("Quel type de dechets recherchez-vous a recycler ?");
-                rep = sc.nextLine();
-                for (int i = 0; i < listeCentres.size(); i++) {
-                    for (int j = 0; j < listeCentres.get(i).getTypeDechetAccepte().size(); j++) {
-                        if (rep.equalsIgnoreCase(listeCentres.get(i).getTypeDechetAccepte().get(j))) {
-                            System.out.println(listeCentres.get(i).getNom() + "\nHeure d'ouverture : " + listeCentres.get(j).getOuverture()
-                                    + "\nHeure de fermeture : " + listeCentres.get(j).getFermeture());
-                        }
-                    }
-                }
-            }
-            default -> {
-            }
-        }
-    }
-
+//    public void rechercherCentre() {
+//        Scanner sc = new Scanner(System.in);
+//        System.out.println("Voulez-vous voir la liste des centres de recyclage (A) ou en chercher un a "
+//                + "partir des dechets qu'il accepte (B) ?");
+//        String rep = sc.nextLine();
+//        switch (rep) {
+//            case "A" -> {
+//                for (int i = 0; i < listeCentres.size(); i++) {
+//                    System.out.println(i + 1 + ". " + listeCentres.get(i).getNom());
+//                }
+//                System.out.println("De quel centre voulez-vous consulter les infos (donnez le numero) ?");
+//                int reponse = sc.nextInt();
+//                for (int j = 0; j < listeCentres.size(); j++) {
+//                    if ((reponse - 1) == j) {
+//                        System.out.println("Heure d'ouverture : " + listeCentres.get(j).getOuverture() + "\nHeure de fermeture : "
+//                                + listeCentres.get(j).getFermeture() + "\nType de dechets acceptes : " + listeCentres.get(j).getTypeDechetAccepte());
+//                    }
+//                }
+//            }
+//            case "B" -> {
+//                System.out.println("Quel type de dechets recherchez-vous a recycler ?");
+//                rep = sc.nextLine();
+//                for (int i = 0; i < listeCentres.size(); i++) {
+//                    for (int j = 0; j < listeCentres.get(i).getTypeDechetAccepte().size(); j++) {
+//                        if (rep.equalsIgnoreCase(listeCentres.get(i).getTypeDechetAccepte().get(j))) {
+//                            System.out.println(listeCentres.get(i).getNom() + "\nHeure d'ouverture : " + listeCentres.get(j).getOuverture()
+//                                    + "\nHeure de fermeture : " + listeCentres.get(j).getFermeture());
+//                        }
+//                    }
+//                }
+//            }
+//            default -> {
+//            }
+//        }
+//    }
     public void modifier(CentreTri centre, String email, String mdp, String nom, String tel, String adresse, LocalTime ouv, LocalTime ferm,
             ArrayList<String> typeD, float capacite) {
         centre.setMail(email);
@@ -323,28 +308,9 @@ public class Plateforme {
         parti.setAdresse(adresse);
     }
 
-    public void demandeCollecte(Entreprise ent) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Quel nom souhaitez vous donner a votre dechet ?");
-        String ID = scanner.nextLine();
-        System.out.println("A quel type de dechet appartient votre dechet ?");
-        String type = scanner.nextLine();
-        boolean stock = false;
-        for (int i = 0; i < listeCentres.size(); i++) {
-            if (listeCentres.get(i).getTypeDechetAccepte().contains(type)) {
-                stock = true;
-            }
-        }
-        if (stock) {
-            System.out.println("""
-                                   Au moins un centre prends en charge le type de dechets que vous avez demande
-                                   Quelle quantite voulez vous faire collecter en tonnes ?""");
-            Float qtte = scanner.nextFloat();
-            Dechet newdechet = new Dechet(ID + listeDechets.size(), type, qtte, ent.getMail());
-            listeDemandes.add(newdechet);
-        } else {
-            System.out.println("Aucun centre n'accepte ce type de dechet.");
-        }
+    public void demandeCollecte(Entreprise ent, String ID, String type, float qtte) {
+        Dechet newdechet = new Dechet(ID + listeDechets.size(), type, qtte, ent.getMail());
+        listeDemandes.add(newdechet);
     }
 
     public Dechet fixerDateCollecte(CentreTri centre) {
@@ -400,7 +366,7 @@ public class Plateforme {
         LocalDate date = dateUtil.toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();
-        CentreTri Centre=null;
+        CentreTri Centre = null;
         for (int i = 0; i < listeCentres.size(); i++) {
             if (listeCentres.get(i).getNom().equals(centre)) {
                 Centre = listeCentres.get(i);
@@ -413,7 +379,7 @@ public class Plateforme {
         parti.setHisto(histo);
     }
 
-public void MAJ() {
+    public void MAJ() {
         for (int i = 0; i < listeDemandes.size(); i++) {
             if (listeDemandes.get(i).getDateCollecte() != null && listeDemandes.get(i).getDateCollecte().isBefore(LocalDate.now())) {
                 String mailClient = listeDemandes.get(i).getClient();
