@@ -18,7 +18,7 @@ import ptraitement.Plateforme;
 public class FRechercheCentre extends javax.swing.JDialog {
 
     private Plateforme maPlat;
-    ArrayList<String> DechetsPossibles;
+    private ArrayList<String> DechetsPossibles;
 
     /**
      * Creates new form FRechercheCentre
@@ -54,6 +54,7 @@ public class FRechercheCentre extends javax.swing.JDialog {
         cbCentres = new javax.swing.JComboBox<>();
         cbDechets = new javax.swing.JComboBox<>();
         cbCentres2 = new javax.swing.JComboBox<>();
+        bRetour = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -102,14 +103,17 @@ public class FRechercheCentre extends javax.swing.JDialog {
             }
         });
 
+        bRetour.setText("Retour");
+        bRetour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bRetourActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(146, 146, 146)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,6 +125,15 @@ public class FRechercheCentre extends javax.swing.JDialog {
                     .addComponent(rbRechercher)
                     .addComponent(cbDechets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(146, 146, 146)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(bRetour)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,7 +150,9 @@ public class FRechercheCentre extends javax.swing.JDialog {
                     .addComponent(cbDechets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(cbCentres2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                .addComponent(bRetour)
+                .addGap(56, 56, 56))
         );
 
         pack();
@@ -194,6 +209,11 @@ public class FRechercheCentre extends javax.swing.JDialog {
                 + centre.getFermeture() + "\nType de dechets acceptes : " + centre.getTypeDechetAccepte());
     }//GEN-LAST:event_cbCentres2ActionPerformed
 
+    private void bRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRetourActionPerformed
+        this.setVisible(false);
+        ((FAccueil) getParent()).getFichMPart().setVisible(true);
+    }//GEN-LAST:event_bRetourActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -237,6 +257,7 @@ public class FRechercheCentre extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bRetour;
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JComboBox<String> cbCentres;
     private javax.swing.JComboBox<String> cbCentres2;

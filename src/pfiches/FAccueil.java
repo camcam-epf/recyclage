@@ -50,10 +50,6 @@ public class FAccueil extends javax.swing.JFrame {
             maPlat.chargerDemandes();
             maPlat.chargerDechets();
             maPlat.MAJ();
-            maPlat.sauvegarderDemandes();
-            maPlat.sauvegarderDechets();
-            maPlat.sauvegarderCentres();
-            maPlat.sauvegarderClients();
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Les données n'ont pas pu être chargées");
         }

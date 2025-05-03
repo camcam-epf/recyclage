@@ -4,11 +4,17 @@
  */
 package pfiches;
 
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 import ptraitement.CentreTri;
+import ptraitement.Client;
+import ptraitement.Dechet;
 import ptraitement.Entreprise;
 import ptraitement.Particulier;
+import ptraitement.Plateforme;
 import ptraitement.Utilisateur;
 
 /**
@@ -17,7 +23,9 @@ import ptraitement.Utilisateur;
  */
 public class FHisto extends javax.swing.JDialog {
 
-    Utilisateur uti;
+    private Utilisateur uti;
+    private Plateforme maPlat;
+    private ArrayList<Dechet> Dechets;
 
     /**
      * Creates new form FHisto
@@ -25,18 +33,68 @@ public class FHisto extends javax.swing.JDialog {
     public FHisto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        maPlat = ((FAccueil) getParent()).getMaPlat();
         uti = ((FAccueil) getParent()).getUti();
+        Dechets = new ArrayList<>();
         if (uti instanceof Entreprise) {
             rbDate.setText("Date de collecte");
+            for (int i = 0; i < maPlat.getListeDechets().size(); i++) {
+                if (uti.getMail().equals(maPlat.getListeDechets().get(i).getClient())) {
+                    Dechets.add(maPlat.getListeDechets().get(i));
+                }
+            }
+            maPlat.TriDate(Dechets);
+            String[] colonnes = {"Date de collecte", "Nom du déchet", "Type de déchets", "Centre de tri"};
+            DefaultTableModel model = new DefaultTableModel(colonnes, 0);
+            for (int i = 0; i < Dechets.size(); i++) {
+                model.addRow(new Object[]{
+                    Dechets.get(i).getDateCollecte().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                    Dechets.get(i).getID(),
+                    Dechets.get(i).getType(),
+                    Dechets.get(i).getCentre()
+                });
+            }
+            tTri.setModel(model);
         } else if (uti instanceof Particulier) {
             rbDate.setText("Date de dépot");
+            for (int i = 0; i < maPlat.getListeDechets().size(); i++) {
+                if (uti.getMail().equals(maPlat.getListeDechets().get(i).getClient())) {
+                    Dechets.add(maPlat.getListeDechets().get(i));
+                }
+            }
+            maPlat.TriDate(Dechets);
+            String[] colonnes = {"Date de dépot", "Nom du déchet", "Type de déchets", "Centre de tri"};
+            DefaultTableModel model = new DefaultTableModel(colonnes, 0);
+            for (int i = 0; i < Dechets.size(); i++) {
+                model.addRow(new Object[]{
+                    Dechets.get(i).getDateCollecte().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                    Dechets.get(i).getID(),
+                    Dechets.get(i).getType(),
+                    Dechets.get(i).getCentre()
+                });
+            }
+            tTri.setModel(model);
         } else if (uti instanceof CentreTri) {
             rbDate.setText("Date de collecte ou de dépot");
             rbCentreClient.setText("Client");
+            for (int i = 0; i < maPlat.getListeDechets().size(); i++) {
+                if (uti.getMail().equals(maPlat.getListeDechets().get(i).getCentre())) {
+                    Dechets.add(maPlat.getListeDechets().get(i));
+                }
+            }
+            maPlat.TriDate(Dechets);
+            String[] colonnes = {"Date de collecte ou de dépot", "Nom du déchet", "Type de déchets", "Client"};
+            DefaultTableModel model = new DefaultTableModel(colonnes, 0);
+            for (int i = 0; i < Dechets.size(); i++) {
+                model.addRow(new Object[]{
+                    Dechets.get(i).getDateCollecte().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                    Dechets.get(i).getID(),
+                    Dechets.get(i).getType(),
+                    Dechets.get(i).getClient()
+                });
+            }
+            tTri.setModel(model);
         }
-        JTableHeader header = tTri.getTableHeader();
-        TableColumnModel columnModel = tTri.getColumnModel();
-        columnModel.getColumn(0).setHeaderValue(rbDate.getText());
     }
 
     /**
@@ -57,6 +115,7 @@ public class FHisto extends javax.swing.JDialog {
         rbCentreClient = new javax.swing.JRadioButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tTri = new javax.swing.JTable();
+        bRetour = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -126,6 +185,13 @@ public class FHisto extends javax.swing.JDialog {
         });
         jScrollPane2.setViewportView(tTri);
 
+        bRetour.setText("Retour");
+        bRetour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bRetourActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -133,19 +199,23 @@ public class FHisto extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(rbDate)
-                        .addGap(18, 18, 18)
-                        .addComponent(rbType)
-                        .addGap(18, 18, 18)
-                        .addComponent(rbCentreClient))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(135, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(rbDate)
+                                .addGap(18, 18, 18)
+                                .addComponent(rbType)
+                                .addGap(18, 18, 18)
+                                .addComponent(rbCentreClient))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addComponent(bRetour)))
+                        .addGap(0, 129, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,7 +229,9 @@ public class FHisto extends javax.swing.JDialog {
                     .addComponent(rbCentreClient))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addComponent(bRetour)
+                .addGap(22, 22, 22))
         );
 
         pack();
@@ -170,31 +242,140 @@ public class FHisto extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowClosed
 
     private void rbDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbDateActionPerformed
-        JTableHeader header = tTri.getTableHeader();
-        TableColumnModel columnModel = tTri.getColumnModel();
-        // Change le titre de la 1ère colonne (index 0)
-        columnModel.getColumn(0).setHeaderValue(rbDate.getText());
-        // Rafraîchir l'affichage de l'en-tête
-        header.repaint();
+        maPlat.TriDate(Dechets);
+        if (uti instanceof Entreprise) {
+            String[] colonnes = {"Date de collecte", "Nom du déchet", "Type de déchets", "Centre de tri"};
+            DefaultTableModel model = new DefaultTableModel(colonnes, 0);
+            for (int i = 0; i < Dechets.size(); i++) {
+                model.addRow(new Object[]{
+                    Dechets.get(i).getDateCollecte().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                    Dechets.get(i).getID(),
+                    Dechets.get(i).getType(),
+                    Dechets.get(i).getCentre()
+                });
+            }
+            tTri.setModel(model);
+        } else if (uti instanceof CentreTri) {
+            String[] colonnes = {"Date de collecte ou de dépot", "Nom du déchet", "Type de déchets", "Client"};
+            DefaultTableModel model = new DefaultTableModel(colonnes, 0);
+            for (int i = 0; i < Dechets.size(); i++) {
+                model.addRow(new Object[]{
+                    Dechets.get(i).getDateCollecte().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                    Dechets.get(i).getID(),
+                    Dechets.get(i).getType(),
+                    Dechets.get(i).getClient()
+                });
+            }
+            tTri.setModel(model);
+        } else if (uti instanceof Particulier) {
+            String[] colonnes = {"Date de dépot", "Nom du déchet", "Type de déchets", "Centre de tri"};
+            DefaultTableModel model = new DefaultTableModel(colonnes, 0);
+            for (int i = 0; i < Dechets.size(); i++) {
+                model.addRow(new Object[]{
+                    Dechets.get(i).getDateCollecte().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                    Dechets.get(i).getID(),
+                    Dechets.get(i).getType(),
+                    Dechets.get(i).getCentre()
+                });
+            }
+            tTri.setModel(model);
+        }
     }//GEN-LAST:event_rbDateActionPerformed
 
     private void rbTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTypeActionPerformed
-        JTableHeader header = tTri.getTableHeader();
-        TableColumnModel columnModel = tTri.getColumnModel();
-        // Change le titre de la 1ère colonne (index 0)
-        columnModel.getColumn(0).setHeaderValue(rbType.getText());
-        // Rafraîchir l'affichage de l'en-tête
-        header.repaint();
+        maPlat.TriType(Dechets);
+        if (uti instanceof Entreprise) {
+            String[] colonnes = {"Type de déchets", "Nom du déchet", "Date de collecte", "Centre de tri"};
+            DefaultTableModel model = new DefaultTableModel(colonnes, 0);
+            for (int i = 0; i < Dechets.size(); i++) {
+                model.addRow(new Object[]{
+                    Dechets.get(i).getType(),
+                    Dechets.get(i).getID(),
+                    Dechets.get(i).getDateCollecte().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                    Dechets.get(i).getCentre()
+                });
+            }
+            tTri.setModel(model);
+        } else if (uti instanceof CentreTri) {
+            String[] colonnes = {"Type de déchets", "Nom du déchet", "Date de collecte ou de dépot", "Client"};
+            DefaultTableModel model = new DefaultTableModel(colonnes, 0);
+            for (int i = 0; i < Dechets.size(); i++) {
+                model.addRow(new Object[]{
+                    Dechets.get(i).getType(),
+                    Dechets.get(i).getID(),
+                    Dechets.get(i).getDateCollecte().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                    Dechets.get(i).getClient()
+                });
+            }
+            tTri.setModel(model);
+        } else if (uti instanceof Particulier) {
+            String[] colonnes = {"Type de déchets", "Nom du déchet", "Date de dépot", "Centre de tri"};
+            DefaultTableModel model = new DefaultTableModel(colonnes, 0);
+            for (int i = 0; i < Dechets.size(); i++) {
+                model.addRow(new Object[]{
+                    Dechets.get(i).getType(),
+                    Dechets.get(i).getID(),
+                    Dechets.get(i).getDateCollecte().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                    Dechets.get(i).getCentre()
+                });
+            }
+            tTri.setModel(model);
+        }
     }//GEN-LAST:event_rbTypeActionPerformed
 
     private void rbCentreClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCentreClientActionPerformed
-        JTableHeader header = tTri.getTableHeader();
-        TableColumnModel columnModel = tTri.getColumnModel();
-        // Change le titre de la 1ère colonne (index 0)
-        columnModel.getColumn(0).setHeaderValue(rbCentreClient.getText());
-        // Rafraîchir l'affichage de l'en-tête
-        header.repaint();
+        if (uti instanceof Entreprise) {
+            maPlat.TriCentre(Dechets);
+            String[] colonnes = {"Centre de tri", "Nom du déchet", "Type de déchets", "Date de collecte"};
+            DefaultTableModel model = new DefaultTableModel(colonnes, 0);
+            for (int i = 0; i < Dechets.size(); i++) {
+                model.addRow(new Object[]{
+                    Dechets.get(i).getCentre(),
+                    Dechets.get(i).getID(),
+                    Dechets.get(i).getType(),
+                    Dechets.get(i).getDateCollecte().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                });
+            }
+            tTri.setModel(model);
+        } else if (uti instanceof CentreTri) {
+            maPlat.TriClient(Dechets);
+            String[] colonnes = {"Client", "Nom du déchet", "Type de déchets", "Date de collecte ou de dépot"};
+            DefaultTableModel model = new DefaultTableModel(colonnes, 0);
+            for (int i = 0; i < Dechets.size(); i++) {
+                model.addRow(new Object[]{
+                    Dechets.get(i).getClient(),
+                    Dechets.get(i).getID(),
+                    Dechets.get(i).getType(),
+                    Dechets.get(i).getDateCollecte().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                });
+            }
+            tTri.setModel(model);
+        } else if (uti instanceof Particulier) {
+            maPlat.TriCentre(Dechets);
+            String[] colonnes = {"Centre de tri", "Nom du déchet", "Type de déchets", "Date de dépot"};
+            DefaultTableModel model = new DefaultTableModel(colonnes, 0);
+            for (int i = 0; i < Dechets.size(); i++) {
+                model.addRow(new Object[]{
+                    Dechets.get(i).getCentre(),
+                    Dechets.get(i).getID(),
+                    Dechets.get(i).getType(),
+                    Dechets.get(i).getDateCollecte().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                });
+            }
+            tTri.setModel(model);
+        }
     }//GEN-LAST:event_rbCentreClientActionPerformed
+
+    private void bRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRetourActionPerformed
+        this.setVisible(false);
+        if (uti instanceof Particulier) {
+            ((FAccueil) getParent()).getFichMPart().setVisible(true);
+        } else if (uti instanceof Entreprise) {
+            ((FAccueil) getParent()).getFichMEnt().setVisible(true);
+        } else if (uti instanceof CentreTri) {
+            ((FAccueil) getParent()).getFichMCentre().setVisible(true);
+        }
+    }//GEN-LAST:event_bRetourActionPerformed
 
     /**
      * @param args the command line arguments
@@ -239,6 +420,7 @@ public class FHisto extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bRetour;
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

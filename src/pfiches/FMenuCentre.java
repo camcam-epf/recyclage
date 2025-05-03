@@ -20,6 +20,8 @@ public class FMenuCentre extends javax.swing.JDialog {
     private FModifierInfos fichMInf;
     private Utilisateur uti;
     private CentreTri centre;
+    private FAccepterDemandeCollecte fichADCollecte;
+    private FHisto fichHisto;
 
     /**
      * Creates new form FMenuCentre
@@ -140,8 +142,9 @@ public class FMenuCentre extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bHistoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bHistoActionPerformed
-        uti = ((FAccueil) getParent()).getUti();
-        JOptionPane.showMessageDialog(this, uti.getHisto());
+        fichHisto = new FHisto(((FAccueil) getParent()), false);
+        this.setVisible(false);
+        fichHisto.setVisible(true);
     }//GEN-LAST:event_bHistoActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -149,7 +152,9 @@ public class FMenuCentre extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowClosed
 
     private void bVoirDCollectesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVoirDCollectesActionPerformed
-        // TODO add your handling code here:
+        fichADCollecte = new FAccepterDemandeCollecte(((FAccueil)getParent()), false);
+        this.setVisible(false);
+        fichADCollecte.setVisible(true);
     }//GEN-LAST:event_bVoirDCollectesActionPerformed
 
     private void bInfosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bInfosActionPerformed
@@ -172,7 +177,7 @@ public class FMenuCentre extends javax.swing.JDialog {
         Plateforme maPlat = ((FAccueil) getParent()).getMaPlat();
         ArrayList<String> liste = new ArrayList();
         for (int i = 0; i < maPlat.getListeDemandes().size(); i++) {
-            if (maPlat.getListeDemandes().get(i).getCentre().equals(centre.getMail())) {
+            if (maPlat.getListeDemandes().get(i).getCentre()!= null && maPlat.getListeDemandes().get(i).getCentre().equals(centre.getMail())) {
                 liste.add(maPlat.getListeDemandes().get(i).toString());
             }
         }

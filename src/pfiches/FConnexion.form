@@ -36,8 +36,8 @@
                       </Group>
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="TfMdp" alignment="1" min="-2" pref="152" max="-2" attributes="0"/>
-                          <Component id="TfMail" alignment="1" min="-2" pref="152" max="-2" attributes="0"/>
+                          <Component id="tfMdp" alignment="1" min="-2" pref="152" max="-2" attributes="0"/>
+                          <Component id="tfMail" alignment="1" min="-2" pref="152" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
@@ -57,12 +57,12 @@
               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lMail" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="TfMail" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfMail" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lMdp" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="TfMdp" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfMdp" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="49" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -80,7 +80,7 @@
         <Property name="text" type="java.lang.String" value="Adresse mail"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="TfMail">
+    <Component class="javax.swing.JTextField" name="tfMail">
     </Component>
     <Component class="javax.swing.JLabel" name="lMdp">
       <Properties>
@@ -103,7 +103,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bValiderActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JPasswordField" name="TfMdp">
+    <Component class="javax.swing.JPasswordField" name="tfMdp">
     </Component>
   </SubComponents>
 </Form>

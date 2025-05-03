@@ -1,2 +1,3 @@
-ordinateur1 - informatique - 8.0 - lafabrique@gmail.com - 2000-01-01 -  
-souris1 - informatique - 0.24 - lafabrique@gmail.com - 2000-01-01 -  
+ordinateur - Informatique - 8.0 - lafabrique@gmail.com - 2000-01-01 -  
+souris - Informatique - 0.5 - lafabrique@gmail.com - 2000-01-01 -  
+clavier - Informatique - 2.5 - lafabrique@gmail.com - 2025-05-18 - centre@tri.fr

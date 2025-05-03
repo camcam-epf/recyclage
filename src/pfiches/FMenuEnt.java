@@ -143,8 +143,6 @@ public class FMenuEnt extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bHistoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bHistoActionPerformed
-//        uti = ((FAccueil) getParent()).getUti();
-//        JOptionPane.showMessageDialog(this, uti.getHisto());
         fichHisto = new FHisto(((FAccueil) getParent()), false);
         this.setVisible(false);
         fichHisto.setVisible(true);

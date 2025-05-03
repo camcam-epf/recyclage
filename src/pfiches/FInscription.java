@@ -37,7 +37,6 @@ public class FInscription extends javax.swing.JDialog {
             model.addElement(dechet);
         }
         liDechets.setModel(model);
-
     }
 
     /**
@@ -142,7 +141,7 @@ public class FInscription extends javax.swing.JDialog {
 
         lCapacite.setText("Capacite de stockage (en tonnes)");
 
-        sCapacite.setModel(new javax.swing.SpinnerNumberModel(1.0f, 1.0f, null, 0.5f));
+        sCapacite.setModel(new javax.swing.SpinnerNumberModel(0.5f, 0.5f, null, 0.5f));
         sCapacite.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout PCentreLayout = new javax.swing.GroupLayout(PCentre);
@@ -164,7 +163,7 @@ public class FInscription extends javax.swing.JDialog {
                         .addGroup(PCentreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbOuverture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbFermeture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(sCapacite, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(sCapacite, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 82, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -211,8 +210,7 @@ public class FInscription extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(402, 402, 402)
-                        .addComponent(bValider)
-                        .addContainerGap(59, Short.MAX_VALUE))
+                        .addComponent(bValider))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,8 +222,8 @@ public class FInscription extends javax.swing.JDialog {
                             .addComponent(tfTel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfAdresse, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(PCentre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(13, Short.MAX_VALUE))))
+                        .addComponent(PCentre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {tfAdresse, tfEmail, tfMdp, tfNom, tfPrenom, tfTel});
@@ -277,6 +275,12 @@ public class FInscription extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRetourActionPerformed
+        tfEmail.setText("");
+        tfMdp.setText("");
+        tfNom.setText("");
+        tfPrenom.setText("");
+        tfTel.setText("");
+        tfAdresse.setText("");
         this.setVisible(false);
         this.getParent().setVisible(true);
     }//GEN-LAST:event_bRetourActionPerformed
@@ -311,8 +315,13 @@ public class FInscription extends javax.swing.JDialog {
                             if (existe == false) {
                                 uti = maPlat.inscriptionPart(email, mdp, nom, prenom, tel, adresse);
                                 ((FAccueil) getParent()).setUti(uti);
-                                maPlat.sauvegarderClients();
                                 this.setVisible(false);
+                                tfEmail.setText("");
+                                tfMdp.setText("");
+                                tfNom.setText("");
+                                tfPrenom.setText("");
+                                tfTel.setText("");
+                                tfAdresse.setText("");
                                 ((FAccueil) getParent()).getFichMPart().setVisible(true);
                             }
                         }
@@ -327,8 +336,13 @@ public class FInscription extends javax.swing.JDialog {
                         if (existe == false) {
                             uti = maPlat.inscriptionEnt(email, mdp, nom, tel, adresse);
                             ((FAccueil) getParent()).setUti(uti);
-                            maPlat.sauvegarderClients();
                             this.setVisible(false);
+                            tfEmail.setText("");
+                            tfMdp.setText("");
+                            tfNom.setText("");
+                            tfPrenom.setText("");
+                            tfTel.setText("");
+                            tfAdresse.setText("");
                             ((FAccueil) getParent()).getFichMEnt().setVisible(true);
                         }
                         break;
@@ -344,8 +358,13 @@ public class FInscription extends javax.swing.JDialog {
                             if (existe == false) {
                                 uti = maPlat.inscriptionCentre(email, mdp, nom, tel, adresse, typeD, ouv, ferm, capacite);
                                 ((FAccueil) getParent()).setUti(uti);
-                                maPlat.sauvegarderCentres();
                                 this.setVisible(false);
+                                tfEmail.setText("");
+                                tfMdp.setText("");
+                                tfNom.setText("");
+                                tfPrenom.setText("");
+                                tfTel.setText("");
+                                tfAdresse.setText("");
                                 ((FAccueil) getParent()).getFichMCentre().setVisible(true);
                             }
                         }
@@ -354,7 +373,7 @@ public class FInscription extends javax.swing.JDialog {
                         break;
                 }
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "Une erreur s'est produite");
+                JOptionPane.showMessageDialog(this, "Une erreur est survenue");
             }
         }
         if (existe) {
@@ -362,7 +381,6 @@ public class FInscription extends javax.swing.JDialog {
             this.setVisible(false);
             ((FAccueil) getParent()).getFichCon().setVisible(true);
         }
-
     }//GEN-LAST:event_bValiderActionPerformed
 
     private void cbUtiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbUtiActionPerformed

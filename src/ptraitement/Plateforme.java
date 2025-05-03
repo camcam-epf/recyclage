@@ -15,6 +15,8 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Scanner;
 import ptraitement.CentreTri;
@@ -44,12 +46,6 @@ public class Plateforme {
 //    connexion, rechercher centre, modifier(centre, particulier, entreprise), MAJ, demande Collecte, fixer date collecte, declarer depot
 //    consulter liste collecte(centre, entreprise)
 //    a faire :  trierHistoDechets
-    public Entreprise inscriptionEnt(String email, String mdp, String nom, String tel, String adresse) {
-        Entreprise entreprise = new Entreprise(email, mdp, nom, tel, adresse);
-        listeClients.add(entreprise);
-        return entreprise;
-    }
-
     public ArrayList<CentreTri> getListeCentres() {
         return listeCentres;
     }
@@ -58,21 +54,33 @@ public class Plateforme {
         return listeClients;
     }
 
-    public ArrayList<Dechet> getListeDemandes(){
+    public ArrayList<Dechet> getListeDemandes() {
         return listeDemandes;
     }
     
-    public Particulier inscriptionPart(String email, String mdp, String nom, String prenom, String tel, String adresse) {
+    public ArrayList<Dechet> getListeDechets(){
+        return listeDechets;
+    }
+
+    public Entreprise inscriptionEnt(String email, String mdp, String nom, String tel, String adresse) throws IOException {
+        Entreprise entreprise = new Entreprise(email, mdp, nom, tel, adresse);
+        listeClients.add(entreprise);
+        sauvegarderClients();
+        return entreprise;
+    }
+
+    public Particulier inscriptionPart(String email, String mdp, String nom, String prenom, String tel, String adresse) throws IOException {
         Particulier particulier = new Particulier(email, mdp, nom, prenom, tel, adresse);
         listeClients.add(particulier);
+        sauvegarderClients();
         return particulier;
-
     }
 
     public CentreTri inscriptionCentre(String email, String mdp, String nom, String tel, String adresse, ArrayList<String> typeD,
-            LocalTime ouverture, LocalTime fermeture, float capacite) {
+            LocalTime ouverture, LocalTime fermeture, float capacite) throws IOException {
         CentreTri centre = new CentreTri(email, mdp, nom, tel, adresse, typeD, ouverture, fermeture, capacite);
         listeCentres.add(centre);
+        sauvegarderCentres();
         return (centre);
     }
 
@@ -247,43 +255,8 @@ public class Plateforme {
         return null;
     }
 
-//    public void rechercherCentre() {
-//        Scanner sc = new Scanner(System.in);
-//        System.out.println("Voulez-vous voir la liste des centres de recyclage (A) ou en chercher un a "
-//                + "partir des dechets qu'il accepte (B) ?");
-//        String rep = sc.nextLine();
-//        switch (rep) {
-//            case "A" -> {
-//                for (int i = 0; i < listeCentres.size(); i++) {
-//                    System.out.println(i + 1 + ". " + listeCentres.get(i).getNom());
-//                }
-//                System.out.println("De quel centre voulez-vous consulter les infos (donnez le numero) ?");
-//                int reponse = sc.nextInt();
-//                for (int j = 0; j < listeCentres.size(); j++) {
-//                    if ((reponse - 1) == j) {
-//                        System.out.println("Heure d'ouverture : " + listeCentres.get(j).getOuverture() + "\nHeure de fermeture : "
-//                                + listeCentres.get(j).getFermeture() + "\nType de dechets acceptes : " + listeCentres.get(j).getTypeDechetAccepte());
-//                    }
-//                }
-//            }
-//            case "B" -> {
-//                System.out.println("Quel type de dechets recherchez-vous a recycler ?");
-//                rep = sc.nextLine();
-//                for (int i = 0; i < listeCentres.size(); i++) {
-//                    for (int j = 0; j < listeCentres.get(i).getTypeDechetAccepte().size(); j++) {
-//                        if (rep.equalsIgnoreCase(listeCentres.get(i).getTypeDechetAccepte().get(j))) {
-//                            System.out.println(listeCentres.get(i).getNom() + "\nHeure d'ouverture : " + listeCentres.get(j).getOuverture()
-//                                    + "\nHeure de fermeture : " + listeCentres.get(j).getFermeture());
-//                        }
-//                    }
-//                }
-//            }
-//            default -> {
-//            }
-//        }
-//    }
     public void modifier(CentreTri centre, String email, String mdp, String nom, String tel, String adresse, LocalTime ouv, LocalTime ferm,
-            ArrayList<String> typeD, float capacite) {
+            ArrayList<String> typeD, float capacite) throws IOException {
         centre.setMail(email);
         centre.setMdp(mdp);
         centre.setNom(nom);
@@ -293,79 +266,46 @@ public class Plateforme {
         centre.setFermeture(ferm);
         centre.setTypeDechetAccepte(typeD);
         centre.setCapacite(capacite);
+        sauvegarderCentres();
     }
 
-    public void modifier(Entreprise ent, String email, String mdp, String nom, String tel, String adresse) {
+    public void modifier(Entreprise ent, String email, String mdp, String nom, String tel, String adresse) throws IOException {
         ent.setMail(email);
         ent.setMdp(mdp);
         ent.setNom(nom);
         ent.setTel(tel);
         ent.setAdresse(adresse);
+        sauvegarderClients();
     }
 
-    public void modifier(Particulier parti, String email, String mdp, String nom, String prenom, String tel, String adresse) {
+    public void modifier(Particulier parti, String email, String mdp, String nom, String prenom, String tel, String adresse) throws IOException {
         parti.setMail(email);
         parti.setMdp(mdp);
         parti.setNom(nom);
         parti.setPrenom(prenom);
         parti.setTel(tel);
         parti.setAdresse(adresse);
+        sauvegarderClients();
     }
 
-    public void demandeCollecte(Entreprise ent, String ID, String type, float qtte) {
-        Dechet newdechet = new Dechet(ID + listeDechets.size(), type, qtte, ent.getMail());
+    public void demandeCollecte(Entreprise ent, String ID, String type, float qtte) throws IOException {
+        Dechet newdechet = new Dechet(ID, type, qtte, ent.getMail());
         listeDemandes.add(newdechet);
+        sauvegarderDemandes();
     }
 
-    public Dechet fixerDateCollecte(CentreTri centre) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Voici la liste des dechets en attente de collecte et qui correspondent aux types de dechets que vous acceptez "
-                + "et a votre capacite de stockage:");
-        int numero = 1;
-        ArrayList<Dechet> demandes = new ArrayList<>();
-        for (int i = 0; i < listeDemandes.size(); i++) {
-            if (listeDemandes.get(i).getCentre() == null) {
-                if (centre.getTypeDechetAccepte().contains(listeDemandes.get(i).getType())
-                        && centre.getCapacite() >= listeDemandes.get(i).getQuantite()) {
-                    System.out.println(numero + "." + listeDemandes.get(i));
-                    demandes.add(listeDemandes.get(i));
-                    numero += 1;
-                }
-            }
-        }
-        System.out.println("Souhaitez-vous accepter une demande ? (oui/non)");
-        String reponse = sc.nextLine();
-        if (reponse.equalsIgnoreCase("oui")) {
-            System.out.println("Laquelle (donnez le numero) ?");
-            int rep = sc.nextInt();
-            Dechet demande = demandes.get(rep - 1);
-            demande.setCentre(centre.getMail());
-            System.out.println("Entrez la date de collecte (Format: YYYY-MM-DD) :");
-            sc.nextLine();
-            String dateStr = sc.nextLine();
-            demande.setDateCollecte(LocalDate.parse(dateStr));
-            return demande;
-        }
-        return null;
+    public Dechet fixerDateCollecte(CentreTri centre, Dechet demande, Object Date) throws IOException {
+        demande.setCentre(centre.getMail());
+        Date dateUtil = (Date) Date; // Récupère la date du spinner
+        LocalDate date = dateUtil.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+        demande.setDateCollecte(date);
+        sauvegarderDemandes();
+        return demande;
     }
 
-    public void consulterListeCollectes(Entreprise ent) {
-        for (int i = 0; i < listeDemandes.size(); i++) {
-            if (listeDemandes.get(i).getClient().equals(ent.getMail())) {
-                System.out.println(listeDemandes.get(i));
-            }
-        }
-    }
-
-    public void consulterListeCollecte(CentreTri centre) {
-        for (int i = 0; i < listeDemandes.size(); i++) {
-            if (listeDemandes.get(i).getCentre() != null && listeDemandes.get(i).getCentre().equals(centre.getMail())) {
-                System.out.println(listeDemandes.get(i));
-            }
-        }
-    }
-
-    public void declarerdepot(Particulier parti, String ID, String type, String centre, float qtte, Object Date) {
+    public void declarerdepot(Particulier parti, String ID, String type, String centre, float qtte, Object Date) throws IOException {
         Date dateUtil = (Date) Date; // Récupère la date du spinner
         LocalDate date = dateUtil.toInstant()
                 .atZone(ZoneId.systemDefault())
@@ -376,14 +316,16 @@ public class Plateforme {
                 Centre = listeCentres.get(i);
             }
         }
-        Dechet newdechet = new Dechet(ID + listeDechets.size(), type, qtte, parti.getMail(), date, Centre.getMail());
+        Dechet newdechet = new Dechet(ID, type, qtte, parti.getMail(), date, Centre.getMail());
         listeDechets.add(newdechet);
         ArrayList<String> histo = parti.getHisto();
         histo.add(newdechet.getID());
         parti.setHisto(histo);
+        sauvegarderDechets();
+        sauvegarderClients();
     }
 
-    public void MAJ() {
+    public void MAJ() throws IOException {
         for (int i = 0; i < listeDemandes.size(); i++) {
             if (listeDemandes.get(i).getDateCollecte() != null && listeDemandes.get(i).getDateCollecte().isBefore(LocalDate.now())) {
                 String mailClient = listeDemandes.get(i).getClient();
@@ -398,38 +340,29 @@ public class Plateforme {
                 listeDemandes.remove(listeDemandes.get(i));
             }
         }
+        sauvegarderDechets();
+        sauvegarderDemandes();
+        sauvegarderClients();
     }
 
-//    public void consulterHisto(Client client) {
-//        System.out.println("""
-//                           Par quoi souhaitez-vous trier vote historique de dechets ?
-//                           1.par date de collecte
-//                           2.par date de depot
-//                           3.par type de dechet
-//                           4.par centre de recyclage""");
-//        Scanner sc = new Scanner(System.in);
-//        int rep = sc.nextInt();
-//        switch (rep) {
-//            case 1 -> {
-//                for (int i = client.getHisto().size()-1;i>=0;i--){
-//                    if
-//                }
-//            }
-//        }
-//        for (int i = nbClients - 1; i >= 0; i--) {
-//            if (nouvClient.placerApres(listeClients[i]) == false) {
-//                listeClients[i + 1] = listeClients[i];
-//                if (i == 0) {
-//                    listeClients[i] = nouvClient;
-//                    nbClients += 1;
-//                    break;
-//                }
-//            }
-//            if (nouvClient.placerApres(listeClients[i]) == true) {
-//                listeClients[i + 1] = nouvClient;
-//                nbClients += 1;
-//                break;
-//            }
-//        }
-//    }
+    public ArrayList<Dechet> TriDate(ArrayList<Dechet> liste) {
+        liste.sort(Comparator.comparing((Dechet d) -> d.getDateCollecte()).reversed());
+        return liste;
+    }
+
+    public ArrayList<Dechet> TriCentre(ArrayList<Dechet> liste){
+        liste.sort(Comparator.comparing((Dechet d) -> d.getCentre()));
+        return liste;
+    }
+    
+    public ArrayList<Dechet> TriClient(ArrayList<Dechet> liste){
+        liste.sort(Comparator.comparing((Dechet d) -> d.getClient()));
+        return liste;
+    }
+    
+    public ArrayList<Dechet> TriType(ArrayList<Dechet> liste) {
+    liste.sort(Comparator.comparing(d -> d.getType()));
+    return liste;
+}
+
 }

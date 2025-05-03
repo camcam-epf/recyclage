@@ -17,7 +17,7 @@ import ptraitement.Utilisateur;
  * @author camil
  */
 public class FDemandeCollecte extends javax.swing.JDialog {
-    
+
     private ArrayList<String> DechetsPossibles;
     private Entreprise ent;
     private Plateforme maPlat;
@@ -93,7 +93,7 @@ public class FDemandeCollecte extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(sQtte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(sQtte, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lType)
                         .addGap(18, 18, 18)
@@ -102,7 +102,7 @@ public class FDemandeCollecte extends javax.swing.JDialog {
                         .addComponent(ldechet)
                         .addGap(18, 18, 18)
                         .addComponent(tfDechet, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addContainerGap(97, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(bRetour)
@@ -145,21 +145,20 @@ public class FDemandeCollecte extends javax.swing.JDialog {
 
     private void bRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRetourActionPerformed
         this.setVisible(false);
-        ((FAccueil) getParent()).getFichMPart().setVisible(true);
+        ((FAccueil) getParent()).getFichMEnt().setVisible(true);
     }//GEN-LAST:event_bRetourActionPerformed
 
     private void bValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bValiderActionPerformed
-        Plateforme maPlat = ((FAccueil) getParent()).getMaPlat();
-        String ID = tfDechet.getText();
-        String type = (String) cbType.getSelectedItem();
-        float qtte = (float) sQtte.getValue();
-        maPlat.demandeCollecte(ent, ID, type, qtte);
-        this.setVisible(false);
-        ((FAccueil) getParent()).getFichMPart().setVisible(true);
         try {
-            maPlat.sauvegarderDemandes();
+            Plateforme maPlat = ((FAccueil) getParent()).getMaPlat();
+            String ID = tfDechet.getText();
+            String type = (String) cbType.getSelectedItem();
+            float qtte = (float) sQtte.getValue();
+            maPlat.demandeCollecte(ent, ID, type, qtte);
+            this.setVisible(false);
+            ((FAccueil) getParent()).getFichMEnt().setVisible(true);
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "Une erreur s'est produite");
+            JOptionPane.showMessageDialog(this, "Une erreur est survenue");
         }
 
     }//GEN-LAST:event_bValiderActionPerformed

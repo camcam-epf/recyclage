@@ -138,8 +138,8 @@ public class FDeclaDepot extends javax.swing.JDialog {
                                     .addComponent(jLabel2))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(sQtte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbCentres, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(cbCentres, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(sQtte, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(95, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -197,22 +197,21 @@ public class FDeclaDepot extends javax.swing.JDialog {
     }//GEN-LAST:event_bRetourActionPerformed
 
     private void bValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bValiderActionPerformed
-        Plateforme maPlat = ((FAccueil) getParent()).getMaPlat();
-        String ID = tfDechet.getText();
-        String type = (String) cbType.getSelectedItem();
-        String centre = (String) cbCentres.getSelectedItem();
-        float qtte = (float) sQtte.getValue();
-        Object Date = sDate.getValue();
-        maPlat.declarerdepot(part, ID, type, centre, qtte, Date);
-        this.setVisible(false);
-        ((FAccueil) getParent()).getFichMPart().setVisible(true);
         try {
-            maPlat.sauvegarderClients();
-            maPlat.sauvegarderDechets();
+            Plateforme maPlat = ((FAccueil) getParent()).getMaPlat();
+            String ID = tfDechet.getText();
+            String type = (String) cbType.getSelectedItem();
+            String centre = (String) cbCentres.getSelectedItem();
+            float qtte = (float) sQtte.getValue();
+            Object Date = sDate.getValue();
+            maPlat.declarerdepot(part, ID, type, centre, qtte, Date);
+            this.setVisible(false);
+            ((FAccueil) getParent()).getFichMPart().setVisible(true);
+
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "Une erreur s'est produite");
+            JOptionPane.showMessageDialog(this, "Une erreur est survenue");
         }
-        
+
     }//GEN-LAST:event_bValiderActionPerformed
 
     /**

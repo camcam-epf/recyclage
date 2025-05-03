@@ -25,8 +25,8 @@ import ptraitement.Utilisateur;
  */
 public class FModifierInfos extends javax.swing.JDialog {
 
-    ArrayList<String> DechetsPossibles;
-    Utilisateur uti;
+    private ArrayList<String> DechetsPossibles;
+    private Utilisateur uti;
 
     /**
      * Creates new form FModifierInfos
@@ -295,12 +295,11 @@ public class FModifierInfos extends javax.swing.JDialog {
         this.setVisible(false);
         if (uti instanceof Particulier) {
             ((FAccueil) getParent()).getFichMPart().setVisible(true);
-        } else if (uti instanceof Entreprise){
+        } else if (uti instanceof Entreprise) {
             ((FAccueil) getParent()).getFichMEnt().setVisible(true);
-        } else if (uti instanceof CentreTri){
+        } else if (uti instanceof CentreTri) {
             ((FAccueil) getParent()).getFichMCentre().setVisible(true);
         }
-
     }//GEN-LAST:event_bRetourActionPerformed
 
     private void bValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bValiderActionPerformed
@@ -325,14 +324,12 @@ public class FModifierInfos extends javax.swing.JDialog {
                     } else {
                         ((FAccueil) getParent()).setUti(part);
                         maPlat.modifier(part, email, mdp, nom, prenom, tel, adresse);
-                        maPlat.sauvegarderClients();
                         this.setVisible(false);
                         ((FAccueil) getParent()).getFichMPart().setVisible(true);
                     }
                 } else if (uti instanceof Entreprise ent) {
                     ((FAccueil) getParent()).setUti(ent);
                     maPlat.modifier(ent, email, mdp, nom, tel, adresse);
-                    maPlat.sauvegarderClients();
                     this.setVisible(false);
                     ((FAccueil) getParent()).getFichMEnt().setVisible(true);
                 } else if (uti instanceof CentreTri centre) {
@@ -341,13 +338,12 @@ public class FModifierInfos extends javax.swing.JDialog {
                     } else {
                         ((FAccueil) getParent()).setUti(centre);
                         maPlat.modifier(centre, email, mdp, nom, tel, adresse, ouv, ferm, typeD, capacite);
-                        maPlat.sauvegarderCentres();
                         this.setVisible(false);
                         ((FAccueil) getParent()).getFichMCentre().setVisible(true);
                     }
                 }
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "Une erreur s'est produite");
+                JOptionPane.showMessageDialog(this, "Une erreur est survenue");
             }
         }
 

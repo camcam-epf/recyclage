@@ -18,6 +18,7 @@ public class FMenuPart extends javax.swing.JDialog {
     private FDeclaDepot fichDDepot;
     private Utilisateur uti;
     private FRechercheCentre fichRCentre;
+    private FHisto fichHisto;
 
     /**
      * Creates new form FMenuPart
@@ -144,8 +145,9 @@ public class FMenuPart extends javax.swing.JDialog {
     }//GEN-LAST:event_bAjoutDepotActionPerformed
 
     private void bHistoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bHistoActionPerformed
-        uti = ((FAccueil) getParent()).getUti();
-        JOptionPane.showMessageDialog(this, uti.getHisto());
+        fichHisto = new FHisto(((FAccueil) getParent()), false);
+        this.setVisible(false);
+        fichHisto.setVisible(true);
     }//GEN-LAST:event_bHistoActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed

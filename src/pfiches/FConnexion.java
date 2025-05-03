@@ -35,11 +35,11 @@ public class FConnexion extends javax.swing.JDialog {
     private void initComponents() {
 
         lMail = new javax.swing.JLabel();
-        TfMail = new javax.swing.JTextField();
+        tfMail = new javax.swing.JTextField();
         lMdp = new javax.swing.JLabel();
         bRetour = new javax.swing.JButton();
         bValider = new javax.swing.JButton();
-        TfMdp = new javax.swing.JPasswordField();
+        tfMdp = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -79,8 +79,8 @@ public class FConnexion extends javax.swing.JDialog {
                             .addComponent(lMdp))
                         .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TfMdp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TfMail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(tfMdp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfMail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(bRetour)
@@ -94,11 +94,11 @@ public class FConnexion extends javax.swing.JDialog {
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lMail)
-                    .addComponent(TfMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lMdp)
-                    .addComponent(TfMdp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfMdp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bRetour)
@@ -111,27 +111,35 @@ public class FConnexion extends javax.swing.JDialog {
 
     private void bRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRetourActionPerformed
         this.setVisible(false);
+        tfMail.setText("");
+        tfMdp.setText("");
         this.getParent().setVisible(true);
     }//GEN-LAST:event_bRetourActionPerformed
 
     private void bValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bValiderActionPerformed
         Plateforme maPlat = ((FAccueil) getParent()).getMaPlat();
-        String mail = TfMail.getText();
-        String mdp = TfMdp.getText();
+        String mail = tfMail.getText();
+        String mdp = tfMdp.getText();
         Utilisateur uti = maPlat.connexion(mail, mdp);
         if (uti == null) {
             JOptionPane.showMessageDialog(this, "Email ou mot de passe érroné");
         } else if (uti instanceof Particulier) {
             ((FAccueil) getParent()).setUti(uti);
             this.setVisible(false);
+            tfMail.setText("");
+            tfMdp.setText("");
             ((FAccueil) getParent()).getFichMPart().setVisible(true);
         } else if (uti instanceof Entreprise) {
             ((FAccueil) getParent()).setUti(uti);
             this.setVisible(false);
+            tfMail.setText("");
+            tfMdp.setText("");
             ((FAccueil) getParent()).getFichMEnt().setVisible(true);
         } else if (uti instanceof CentreTri) {
             ((FAccueil) getParent()).setUti(uti);
             this.setVisible(false);
+            tfMail.setText("");
+            tfMdp.setText("");
             ((FAccueil) getParent()).getFichMCentre().setVisible(true);
         }
     }//GEN-LAST:event_bValiderActionPerformed
@@ -183,11 +191,11 @@ public class FConnexion extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField TfMail;
-    private javax.swing.JPasswordField TfMdp;
     private javax.swing.JButton bRetour;
     private javax.swing.JButton bValider;
     private javax.swing.JLabel lMail;
     private javax.swing.JLabel lMdp;
+    private javax.swing.JTextField tfMail;
+    private javax.swing.JPasswordField tfMdp;
     // End of variables declaration//GEN-END:variables
 }
